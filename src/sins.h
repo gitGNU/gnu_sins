@@ -8,7 +8,7 @@
 
 
 /* version string */
-#define VERSION "0.21"
+#define VERSION "0.22"
 
 
 /* delay range (microseconds) */
