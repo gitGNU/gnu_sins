@@ -61,7 +61,7 @@ mod_wall.o: mod_wall.c sins.h
 #--- BINS
 
 X-sins: $(OBJ) $(MODULES) ui_X.c sins.h
-	$(CC) $(CFLAGS) $(X_CFLAGS) -o $@ $(OBJ) $(MODULES) ui_X.c
+	$(CC) $(CFLAGS) $(X_CFLAGS) $(LDFLAGS) -o $@ $(OBJ) $(MODULES) ui_X.c
 
 curses-sins: $(OBJ) $(MODULES) ui_curses.c  sins.h
 	$(CC) $(CFLAGS) $(CURSES_CFLAGS) $(LDFLAGS) -o $@ $(OBJ) $(MODULES) ui_curses.c
