@@ -145,8 +145,8 @@ ui_drawarena (ARENA *arena)
 	int y, x, val;
 	sprite *sp;
 	chtype look;
-	int should_redraw = 1;
-	static int x0 = 10;
+	int should_redraw = 0;
+	static int x0 = 0;
 	static int y0 = 0;
 
 	if ( x0 != arena->x0 || y0 != arena->y0 )
@@ -160,6 +160,8 @@ ui_drawarena (ARENA *arena)
 	{
 		for (x = 0; x < arena->cols; x++)
 		{
+			int drawx, drawy;
+
 			sp = GETSPRITE(arena,y,x);
 
 			if ( !sp ) look = ' ';
@@ -198,9 +200,14 @@ ui_drawarena (ARENA *arena)
 				continue;
 			*(arenamap+y*arena->cols+x) = look;
 
-			x=(x+x0)%arena->cols;
-			y=(y+y0)%arena->lines;
-			mvwaddch (arenawin, y+ARENA_Y_OFFSET, x+ARENA_X_OFFSET, look);
+			drawx=(arena->cols+(x-x0))%arena->cols;
+			drawy=(arena->lines+(y-y0))%arena->lines;
+			drawy+=ARENA_Y_OFFSET;
+			drawx+=ARENA_X_OFFSET;
+			if ( ERR == mvwaddch (arenawin, drawy, drawx, look) )
+			{
+				message("mvwaddch returned ERR");
+			}
 
 		} /* x loop */
 	} /* y loop */
@@ -430,9 +437,9 @@ ui_getkey ()
   	arena.y0 = (arena.y0+1)%arena.lines;
   else if ( key == KEY_UP )
   	arena.y0 = (arena.lines+arena.y0-1)%arena.lines;
-  else if ( key == KEY_LEFT )
-  	arena.x0 = (arena.x0+1)%arena.cols;
   else if ( key == KEY_RIGHT )
+  	arena.x0 = (arena.x0+1)%arena.cols;
+  else if ( key == KEY_LEFT )
   	arena.x0 = (arena.cols+arena.x0-1)%arena.cols;
   return key;
 }
