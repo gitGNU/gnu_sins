@@ -143,6 +143,7 @@ static Window create_arenawin (Display *dpy, int width, int height);
 static void create_pictset_pixmap (void);
 #ifdef USE_ARENAWIN_PIXMAP
 static void create_arenawin_pixmap (void);
+static void UpdateScreen(ARENA *arena);
 #endif
 #ifdef USE_BACKINGSTORE
 static void enable_backingstore(Display *d, Window w);
@@ -425,8 +426,8 @@ ui_drawmessage (char *str)
 #ifdef USE_ARENAWIN_PIXMAP
   XDrawString(dpy, arenawin_pixmap, messagegc, msgbox.fx,
     msgbox.fy, str, strlen(str));
-  XCopyArea(dpy, arenawin_pixmap, arenawin, arenagc,
-    0, 0, xdim, ydim, 0, 0);
+  UpdateScreen(&arena);
+  //XCopyArea(dpy, arenawin_pixmap, arenawin, arenagc, 0, 0, xdim, ydim, 0, 0);
 #else
   XDrawString(dpy, arenawin, messagegc, msgbox.fx,
     msgbox.fy, str, strlen(str));
@@ -439,6 +440,9 @@ ui_drawmessage (char *str)
 }
 
 
+/*
+ * TODO: support camera control when using pixmap
+ */
 void
 ui_drawarena (ARENA *arena)
 {
@@ -449,6 +453,8 @@ ui_drawarena (ARENA *arena)
   short should_redraw_message = 0;
   short should_redraw_sprite;
   XEvent event;
+  static int x0=0;
+  static int y0=0;
 #ifdef USE_ARENAWIN_PIXMAP 
   short need_update = 0;
 #else
@@ -457,6 +463,17 @@ ui_drawarena (ARENA *arena)
 
   expreg = XCreateRegion();
 #endif
+
+  if ( x0 != arena->x0 || y0 != arena->y0 )
+  {
+    x0 = arena->x0;
+    y0 = arena->y0;
+#ifndef USE_ARENAWIN_PIXMAP
+    should_redraw = 1;
+#else
+    need_update = 1;
+#endif
+  }
 
 #ifndef USE_ROOT_WINDOW
   while ( XCheckWindowEvent(dpy, arenawin, StructureNotifyMask|ExposureMask, &event) )
@@ -599,9 +616,11 @@ ui_drawarena (ARENA *arena)
 
       if ( should_redraw_sprite ) 
       {
-        copy_pict(x, y, pictidx);
 #ifdef USE_ARENAWIN_PIXMAP 
         need_update = 1;
+        copy_pict(x, y, pictidx);
+#else
+        copy_pict((arena->cols+(x-x0))%arena->cols, (arena->lines+(y-y0))%arena->lines, pictidx);
 #endif
 
         if ( SPRITEINMESSAGEBOX(x,y) )
@@ -628,8 +647,7 @@ ui_drawarena (ARENA *arena)
 #ifdef USE_ARENAWIN_PIXMAP
   if ( need_update )
   {
-    XCopyArea(dpy, arenawin_pixmap, arenawin, arenagc,
-        0, 0, xdim, ydim, 0, 0);
+    UpdateScreen(arena);
 /* fprintf(stderr, "Need update = %i\n", need_update); */
   }
 #endif
@@ -701,6 +719,12 @@ ui_getkey ()
 
     if ( event.type == KeyPress )
     {
+
+      /* Camera movements */
+      if ( key == XK_Up ) arena.y0--;
+      else if ( key == XK_Down ) arena.y0++;
+      else if ( key == XK_Right ) arena.x0--;
+      else if ( key == XK_Left ) arena.x0++;
 
       /* ENTER KEY */
       if ( key == 65293 ) retkey = '\n';
@@ -1311,5 +1335,46 @@ static int afterfunc (Display *dpy)
   fprintf(stderr, "last_request: %ld\n", XLastKnownRequestProcessed(dpy));
   */
   return 1;
+}
+#endif
+
+#ifdef USE_ARENAWIN_PIXMAP
+static void
+UpdateScreen(ARENA *arena)
+{
+	int x0 = 10;
+	int y0 = 10;
+
+#if 0
+	XCopyArea(dpy, arenawin_pixmap, arenawin, arenagc,
+		0, 0,
+		xdim, ydim,
+		0, 0);
+
+#else
+	XCopyArea(dpy, arenawin_pixmap, arenawin, arenagc,
+		x0*spritewidth, y0*spriteheight,
+		xdim-spritewidth*x0,
+		ydim-spriteheight*y0,
+		0, 0);
+
+	XCopyArea(dpy, arenawin_pixmap, arenawin, arenagc,
+		0, y0*spriteheight,
+		spritewidth*x0,
+		ydim-spriteheight*y0,
+		x0*spritewidth, 0);
+
+	XCopyArea(dpy, arenawin_pixmap, arenawin, arenagc,
+		x0*spritewidth, 0,
+		xdim-spritewidth*x0,
+		spriteheight*y0,
+		0, y0*spriteheight);
+
+	XCopyArea(dpy, arenawin_pixmap, arenawin, arenagc,
+		0, 0,
+		spritewidth*x0,
+		spriteheight*y0,
+		x0*spritewidth, y0*spriteheight);
+#endif
 }
 #endif
