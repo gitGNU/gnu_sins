@@ -123,6 +123,9 @@ extern void message (char *format, ...);
 /* Arena structure */
 typedef struct arena_t
 {
+  int x0;	/* Camera origin */
+  int y0;
+
   int lines;        /* dimensions of the "bidimensional" sprite array */
   int cols;                               
 

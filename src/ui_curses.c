@@ -142,62 +142,73 @@ ui_drawmessage (char *str)
 void
 ui_drawarena (ARENA *arena)
 {
-  int y, x, val;
-  sprite *sp;
-  chtype look;
-  int should_redraw = 0;
+	int y, x, val;
+	sprite *sp;
+	chtype look;
+	int should_redraw = 1;
+	static int x0 = 10;
+	static int y0 = 0;
 
-  for (y = 0; y < arena->lines; y++)
-  {
-    for (x = 0; x < arena->cols; x++)
-	  {
-      sp = GETSPRITE(arena,y,x);
+	if ( x0 != arena->x0 || y0 != arena->y0 )
+	{
+		x0 = arena->x0;
+		y0 = arena->y0;
+		should_redraw = 1;
+	}
 
-	    if ( !sp ) look = ' ';
-	    else
-      {
-	      switch (sp->type)
-	      {
-	        case SNAKE:
-		        val = ((snakebody *) (sp))->self->playernum;
-		        look = (val+48) | A_REVERSE;
-            if ( use_colors ) look |= COLOR_PAIR(val);
-		        break;
+	for (y = 0; y < arena->lines; y++)
+	{
+		for (x = 0; x < arena->cols; x++)
+		{
+			sp = GETSPRITE(arena,y,x);
 
-	        case EXSNAKE:
-		        look = '.';
-		        break;
+			if ( !sp ) look = ' ';
+			else
+			{
+				switch (sp->type)
+				{
+					case SNAKE:
+						val = ((snakebody *) (sp))->self->playernum;
+						look = (val+48) | A_REVERSE;
+						if ( use_colors ) look |= COLOR_PAIR(val);
+						break;
 
-	        case FRUIT:
-		        look = ((fruit *) (sp))->value;
-		        val = FRUITVAL ((fruit *) sp);
-            if ( use_colors ) look |= COLOR_PAIR ( (10+val) );
-		        break;
+					case EXSNAKE:
+						look = '.';
+						break;
 
-          /* This is for future implementations */
-	        case WALL:
-		        look = '#';
-		        break;
+					case FRUIT:
+						look = ((fruit *) (sp))->value;
+						val = FRUITVAL ((fruit *) sp);
+						if ( use_colors ) look |= COLOR_PAIR ( (10+val) );
+						break;
 
-	        default:
-		        look = '?';
-		        break;
-        }
-      }
+					/* This is for future implementations */
+					case WALL:
+						look = '#';
+						break;
 
-      if ( *(arenamap+y*arena->cols+x) == look && !should_redraw ) continue;
-      *(arenamap+y*arena->cols+x) = look;
+					default:
+						look = '?';
+						break;
+				}
+			}
 
-	    mvwaddch (arenawin, y + ARENA_Y_OFFSET, x + ARENA_X_OFFSET, look);
+			if ( !should_redraw && *(arenamap+y*arena->cols+x) == look )
+				continue;
+			*(arenamap+y*arena->cols+x) = look;
 
-    } /* x loop */
-  } /* y loop */
+			x=(x+x0)%arena->cols;
+			y=(y+y0)%arena->lines;
+			mvwaddch (arenawin, y+ARENA_Y_OFFSET, x+ARENA_X_OFFSET, look);
 
-  draw_motion();
+		} /* x loop */
+	} /* y loop */
 
-  touchwin (arenawin); 
-  wrefresh (arenawin);
+	draw_motion();
 
+	touchwin (arenawin); 
+	wrefresh (arenawin);
 }
 
 /*
@@ -291,6 +302,11 @@ init_screen ()
   {
       message("The terminal does not support colors");
   }
+
+  /*
+   * Enable keypad
+   */
+  keypad(stdscr, TRUE);
 
   /*
    * success 
@@ -408,7 +424,17 @@ ui_finish ()
 int
 ui_getkey ()
 {
-  return getch();
+  int key;
+  key = getch();
+  if ( key == KEY_DOWN )
+  	arena.y0 = (arena.y0+1)%arena.lines;
+  else if ( key == KEY_UP )
+  	arena.y0 = (arena.lines+arena.y0-1)%arena.lines;
+  else if ( key == KEY_LEFT )
+  	arena.x0 = (arena.x0+1)%arena.cols;
+  else if ( key == KEY_RIGHT )
+  	arena.x0 = (arena.cols+arena.x0-1)%arena.cols;
+  return key;
 }
 
 static void
