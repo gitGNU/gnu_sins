@@ -1,4 +1,5 @@
-/*
+/****************************************************************************
+ * 
  *    snake - a videogame derived from Q-Basic nibbles
  *    Copyright (C) 1999 Cyberandro J.K. Starrik
  *
@@ -16,11 +17,20 @@
  *    along with this program; if not, write to the Free Software
  *    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- */
-
-/*
+ ****************************************************************************
+ *
  * file: ui_vga.c *  purpose: handle vga graphics 
- */
+ *
+ ****************************************************************************
+ *
+ * $Log: ui_vga.c,v $
+ * Revision 1.2  2003/11/10 21:19:06  strk
+ * removed multi-line string
+ *
+ *
+ ****************************************************************************/
+
+
 
 #include "sins.h"
 #include <vga.h>
@@ -134,13 +144,13 @@ ui_initarena (ARENA *arena)
   else arena->lines = maxlines;
 
 
-  fprintf(stderr, "
-modeinfo->width: %i
-modeinfo->height: %i
-arena->cols: %i
-arena->lines: %i
-spritewidth: %i
-spriteheight: %i
+  fprintf(stderr, "\n\
+modeinfo->width: %i\n\
+modeinfo->height: %i\n\
+arena->cols: %i\n\
+arena->lines: %i\n\
+spritewidth: %i\n\
+spriteheight: %i\n\
 border: %i\n",
 modeinfo->width,
 modeinfo->height,
