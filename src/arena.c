@@ -28,6 +28,7 @@ sprite *arenaget (int y, int x);
 int arenainit (void);
 int arenalines (void);
 int arenacols (void);
+int CMD_camera (char *);
 
   
 
@@ -52,6 +53,12 @@ arenainit ()
   memset (arena.board, 0, arena.lines*arena.cols*sizeof(sprite) );
 
   arena.init = 1;
+  arena.protagonist = -1;
+
+  if ( ! register_command("camera", CMD_camera, "camera on #") )
+  {
+  	return 0;
+  }
 
   return 1;
 }
@@ -87,4 +94,13 @@ arenaput (int y, int x, sprite * sp)
   *(arena.board + (y * arena.cols + x)) = sp;
 
   return 1;
+}
+
+int 
+CMD_camera(char *s)
+{
+	int prot;
+	if ( 1 != sscanf(s, "on %d", &prot) ) return -1;
+	arena.protagonist = prot;
+	return 1;
 }

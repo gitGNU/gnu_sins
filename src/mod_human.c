@@ -50,13 +50,13 @@ human_module_init ()
 static DIRECTION
 play (snake * s)
 {
+	int dir;
+	int typein;
+	brain *mybrain = (brain *) s->brain;
 
-  int typein;
-  brain *mybrain = (brain *) s->brain;
-
-  /* fill the snake's key queue */
-  while ((typein = fetchtypein ()) != -1)
-  {
+	/* fill the snake's key queue */
+	while ((typein = fetchtypein ()) != -1)
+	{
 
     if (
       typein == mybrain->kl
@@ -65,25 +65,39 @@ play (snake * s)
       || typein == mybrain->kd
     ) if (!_putqueue (s, typein)) break;
 
-  }
+	}
 
 
-  /* Get next queued key */
-  typein = _getqueue (s);
+	/* Get next queued key */
+	typein = _getqueue (s);
 
-  /* Key left */
-  if (typein == mybrain->kl) return LEFT;
+	/* Key left */
+	if (typein == mybrain->kl)
+	{
+		dir = LEFT;
+	}
 
-  /* Key up */
-  else if (typein == mybrain->ku) return UP;
+	/* Key up */
+	else if (typein == mybrain->ku)
+	{
+		dir = UP;
+	}
 
-  /* Key right */
-  else if (typein == mybrain->kr) return RIGHT;
+	/* Key right */
+	else if (typein == mybrain->kr)
+	{
+		dir = RIGHT;
+	}
 
-  /* Key down */
-  else if (typein == mybrain->kd) return DOWN;
+	/* Key down */
+	else if (typein == mybrain->kd)
+	{
+		dir = DOWN;
+	}
 
-  return s->dir;
+	else dir = s->dir;
+
+	return dir;
 }
 
 

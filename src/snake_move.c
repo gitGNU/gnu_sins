@@ -191,6 +191,14 @@ move_head (snake * s)
   /* increment the new snake's length */
   s->length++;
 
+  /* Camera follows this snake */
+  if ( arena.protagonist == s->playernum )
+  {
+  	arena.x0 = (s->head->cell.x)-(arena.cols/2);
+  	arena.y0 = (s->head->cell.y)-(arena.lines/2);
+  }
+
+
 }
 
 
