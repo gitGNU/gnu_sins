@@ -723,8 +723,8 @@ ui_getkey ()
       /* Camera movements */
       if ( key == XK_Up ) arena.y0--;
       else if ( key == XK_Down ) arena.y0++;
-      else if ( key == XK_Right ) arena.x0--;
-      else if ( key == XK_Left ) arena.x0++;
+      else if ( key == XK_Right ) arena.x0++;
+      else if ( key == XK_Left ) arena.x0--;
 
       /* ENTER KEY */
       if ( key == 65293 ) retkey = '\n';
