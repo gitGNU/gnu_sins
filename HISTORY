@@ -1,6 +1,8 @@
 HISTORY
 
 0.22
+	- Code development put under CVS.
+	  See ChangeLog for news.
 
 0.21
 	- utils/makepictset improved [ ahahah ;) ]

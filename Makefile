@@ -1,5 +1,4 @@
 all:
-	@echo
-	@echo "cd src; ./configure; ./make"
-	@echo
+	@echo "Type:"
+	@echo "$$ cd src; ./configure; ./make"
 
