@@ -24,6 +24,9 @@
  ****************************************************************************
  *
  * $Log: main.c,v $
+ * Revision 1.3  2004/04/13 07:30:05  strk
+ * Camera command registered before command line parsing
+ *
  * Revision 1.2  2003/12/19 19:00:58  strk
  * various small changes
  *
@@ -62,6 +65,7 @@ extern int CMD_trim (char *);
 extern int CMD_help (char *);
 extern int CMD_source (char *);
 extern int CMD_path (char *);
+extern int CMD_camera (char *);
 extern void expire_messages (void);
 extern void rewindtypein (void);
 extern void resettypein (void);
@@ -135,6 +139,8 @@ main (int argc, char **argv)
   register_command ("quit", CMD_quit, "quit");
   register_command ("mfprob", CMD_mfprob, "mfprob <percent>");
   register_command ("path", CMD_path, "path [<string>]");
+  register_command("camera", CMD_camera, "camera on #");
+
 
   /* Parse command line options (-switches) */
   optind = parse_cmdline_opts (argc, argv);
@@ -160,6 +166,11 @@ main (int argc, char **argv)
   /* Parse configuration file */
   source_rcfile ();
 
+  /* Initialize graphics, arena and fruit */
+  if ( !ui_initarena (&arena) ) finish();
+  arenainit ();
+  init_fruit ();
+
   /*
    * parse command line arguments
    * parse it after configuration file
@@ -167,10 +178,6 @@ main (int argc, char **argv)
    */
   parse_cmdline_args (argc - optind, argv + optind);
 
-  /* Initialize graphics, arena and fruit */
-  if ( !ui_initarena (&arena) ) finish();
-  arenainit ();
-  init_fruit ();
 
   /*
    * Set signal handlers

@@ -55,11 +55,6 @@ arenainit ()
   arena.init = 1;
   arena.protagonist = -1;
 
-  if ( ! register_command("camera", CMD_camera, "camera on #") )
-  {
-  	return 0;
-  }
-
   return 1;
 }
 
