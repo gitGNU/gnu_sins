@@ -1,7 +1,7 @@
 /****************************************************************************
- * 
+ *
  *    snake - a videogame derived from Q-Basic nibbles
- *    Copyright (C) 1999 Cyberandro J.K. Starrik
+ *    Copyright (C) 1999 "Sandro Santilli" <strk@keybit.net>
  *
  *    This program is free software; you can redistribute it and/or modify
  *    it under the terms of the GNU General Public License as published by
@@ -18,17 +18,10 @@
  *    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
  ****************************************************************************
- *
- * file: ui_vga.c *  purpose: handle vga graphics 
- *
+ * $Id: ui_vga.c,v 1.4 2004/07/28 13:33:13 strk Exp $
  ****************************************************************************
  *
- * $Log: ui_vga.c,v $
- * Revision 1.3  2003/12/19 19:00:58  strk
- * various small changes
- *
- * Revision 1.2  2003/11/10 21:19:06  strk
- * removed multi-line string
+ * purpose: handle vga graphics 
  *
  ****************************************************************************/
 
@@ -366,4 +359,19 @@ draw_sprite (int sx, int sy, int color)
   }
   vga_setcolor(vga_white());
 }
+
+/****************************************************************************
+ *
+ * $Log: ui_vga.c,v $
+ * Revision 1.4  2004/07/28 13:33:13  strk
+ * Added copyright statment and permission to copy header in all files.
+ * Added a reference to source URL into compat.c file.
+ *
+ * Revision 1.3  2003/12/19 19:00:58  strk
+ * various small changes
+ *
+ * Revision 1.2  2003/11/10 21:19:06  strk
+ * removed multi-line string
+ *
+ ****************************************************************************/
 

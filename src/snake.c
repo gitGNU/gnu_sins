@@ -1,7 +1,7 @@
 /****************************************************************************
  *
  *    snake - a videogame derived from Q-Basic nibbles
- *    Copyright (C) 1999 Cyberandro J.K. Starrik
+ *    Copyright (C) 1999 "Sandro Santilli" <strk@keybit.net>
  *
  *    This program is free software; you can redistribute it and/or modify
  *    it under the terms of the GNU General Public License as published by
@@ -24,6 +24,10 @@
  ****************************************************************************
  *
  * $Log: snake.c,v $
+ * Revision 1.4  2004/07/28 13:33:13  strk
+ * Added copyright statment and permission to copy header in all files.
+ * Added a reference to source URL into compat.c file.
+ *
  * Revision 1.3  2004/04/13 07:30:32  strk
  * removed warning about multiple initializzation of snakes
  *

@@ -3,6 +3,9 @@
  *    support for 4BSD and exploits the 4BSD select() system call.
  *    Doug originally called it 'nap()'; you probably want to call it
  *    "usleep()";
+ *
+ *    Copied from:
+ *    http://www.faqs.org/faqs/unix-faq/faq/part4/section-6.html
  */
 
 #ifndef HAVE_USLEEP

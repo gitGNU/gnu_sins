@@ -1,6 +1,6 @@
 /*
  *    snake - a videogame derived from Q-Basic nibbles
- *    Copyright (C) 1999 Cyberandro J.K. Starrik
+ *    Copyright (C) 1999 "Sandro Santilli" <strk@keybit.net>
  *
  *    This program is free software; you can redistribute it and/or modify
  *    it under the terms of the GNU General Public License as published by
@@ -17,6 +17,7 @@
  *    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
  */
+
 #include "sins.h"
 #include <math.h>
 
