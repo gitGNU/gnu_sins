@@ -1,0 +1,80 @@
+#-------- SNAKE CONFIGURATION ------------------
+#
+# since version 0.7 actions associated with the
+# configuration lines are triggered in the order 
+# they appear.
+#
+#-----------------------------------------------
+
+#-------------- CORE commands ---------------------------------------
+# delay <int>	 # set speed (higher delay, slower game)
+# path <string>  # set searchpath for commands that refer to files
+# mfprob <int>   # Magic Fruit PROBability of appearence 0-100 (%)
+# cmdfifo <file> # fifo file to use as a command interface
+
+#-------------- AI module commands ----------------------------------
+# sdw == snake distance weight
+# fdw == fruit distance weight
+# rw  == random weight
+# iw  == inertia weight
+# spw == snake presence weight
+# fsw == free space weight
+# dsp == dead snake proximity
+#
+
+# long size, short life
+#ai	<sdw>	<fdw>	<rw>	<iw>	<spw>	<fsw>	<dsp>
+#ai	.200	.150	.050	.049	.300	1	.4
+#ai	.200	.150	.050	.049	.300	1	.4
+#ai	.200	.140	.050	.049	.300	1	.9
+
+
+# short size, long life
+#ai	<sdw>	<fdw>	<rw>	<iw>	<spw>	<fsw>	<dsp>
+#ai	.5	.2	1	.8	0	.4	.3
+
+# DIE HARD! (don't like fruit)
+#ai	<sdw>	<fdw>	<rw>	<iw>	<spw>	<fsw>	<dsp>
+#ai	1	-.8	.8	.6	0	1	0
+
+# annoy the other snakes !
+#ai	<sdw>	<fdw>	<rw>	<iw>	<spw>	<fsw>	<dsp>
+#ai	-1	.003	.01	.008	0	-1	0
+
+#-------------- HUMAN module commands --------------------------------
+
+#human	<left>	<up>	<right>	<down>
+#human	k	o	;	l
+#human	a	w	d	s
+#human	g	y	j	h
+# twin snakes ( all with the same control keys )
+#human	f	t	h	g	// twin snake 1
+#human	f	t	h	g	// twin snake 2
+#human	f	t	h	g	// twin snake 3
+
+#-------------- X interface commands ----------------------------------
+
+# file from which to load the set of sprites to use
+# will look for <file> in <searchpath>	
+#loadpictset <file> 
+
+# Set font color
+#fontcolor yellow
+
+#-------------- vga interface commands ---------------------------------
+
+# file from which to load the set of sprites to use
+# will look for <file> in <searchpath>	
+#loadpictset <file> 
+
+#-------------- vga2 interface commands --------------------------------
+
+# file from which to load the set of sprites to use
+# will look for <file> in <searchpath>	
+#loadpictset <file> 
+
+#-------------- curses interface commands --------------------------------
+
+# use colors when applicable ?
+# ( do not always work )
+colors off

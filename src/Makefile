@@ -1,0 +1,106 @@
+# Generated automatically from Makefile.in by configure.
+# These directives are taken from the GNU coding standard
+
+SHELL = /bin/sh
+
+prefix = /usr/local
+exec_prefix = ${prefix}
+bindir = ${exec_prefix}/bin
+sysconfdir = ${prefix}/etc
+datadir = ${prefix}/share/sins
+
+# END-OF-GNU standard directives
+
+CURSES_CFLAGS =  -lcurses
+VGA_CFLAGS =  -lvga
+VGA2_CFLAGS =  -lvga -lvgagl
+X_CFLAGS =  -L/usr/X11R6/lib -lX11 -I/usr/X11R6/include
+LIBS = -lm
+LDFLAGS =
+DEFS = -DHAVE_CONFIG_H
+CFLAGS = -g -O2 -Wall -I. -DDEFAULT_SEARCHPATH='"${datadir}/pictset:~"'
+CC = gcc
+MODULES = mod_ai.o mod_human.o mod_wall.o
+
+OBJ = main.o snake_move.o parse_input.o fruit.o common.o delay.o config.o modules.o arena.o messages.o snake.o cmdline.o command.o
+
+all: dumb-sins ansi-sins vga-sins vga2-sins curses-sins X-sins
+
+main.o: main.c sins.h
+
+snake_move.o: snake_move.c sins.h
+
+parse_input.o: parse_input.c sins.h
+
+fruit.o: fruit.c sins.h
+
+common.o: common.c sins.h
+
+delay.o: delay.c  sins.h
+
+config.o: config.c  sins.h
+
+modules.o: modules.c  sins.h
+
+arena.o: arena.c  sins.h
+
+messages.o: messages.c  sins.h
+
+snake.o: snake.c  sins.h
+
+cmdline.o: cmdline.c  sins.h
+
+command.o: command.c sins.h
+
+#--- MODS
+
+mod_human.o: mod_human.c mod_human.h sins.h
+
+mod_ai.o: mod_ai.c sins.h
+
+mod_wall.o: mod_wall.c sins.h
+
+#--- BINS
+
+X-sins: $(OBJ) $(MODULES) ui_X.c sins.h
+	$(CC) $(CFLAGS) $(X_CFLAGS) -o $@ $(OBJ) $(MODULES) ui_X.c
+
+curses-sins: $(OBJ) $(MODULES) ui_curses.c  sins.h
+	$(CC) $(CFLAGS) $(CURSES_CFLAGS) -o $@ $(OBJ) $(MODULES) ui_curses.c
+
+dumb-sins: $(OBJ) $(MODULES) ui_dumb.c sins.h
+	$(CC) -o $@ $(CFLAGS) $(OBJ) $(MODULES) ui_dumb.c
+
+ansi-sins: $(OBJ) $(MODULES) ui_ansi.c sins.h
+	$(CC) -o $@ $(CFLAGS) $(OBJ) $(MODULES) ui_ansi.c
+
+vga-sins: $(OBJ) $(MODULES) ui_vga.c sins.h
+	$(CC) $(CFLAGS) $(VGA_CFLAGS) $(LDFLAGS) -o $@ $(OBJ) $(MODULES) ui_vga.c
+
+vga2-sins: $(OBJ) $(MODULES) ui_vga2.c sins.h
+	$(CC) $(CFLAGS) $(VGA2_CFLAGS) -o $@ $(OBJ) $(MODULES) ui_vga2.c
+
+#--- UTILS
+
+clean:
+	rm -f *-sins core *.core *~ *.o
+
+distclean: clean
+	rm -f Makefile config.h config.cache config.status config.log
+
+install: all
+
+	# Install binaries
+	install --mode=0755 -d ${bindir}
+	install --strip --mode=0755 *-sins ${bindir}
+	install --mode=0755 sins ${bindir}
+
+	# Install data
+	install --mode=0755 -d ${datadir}
+	cp -R ../share/* ${datadir}
+
+# This is just a reminder about building a library
+sins_core.a: $(OBJ)
+	ar -rc $@ $(OBJ) 
+	ranlib $@
+

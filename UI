@@ -1,0 +1,26 @@
+UI module exported functions:
+
+	-- Initialize module. Register commands here.
+	int ui_init ();
+
+	-- Initialize arena. Argument is the arena structure with
+	-- possible dimensions defined.
+	int ui_initarena (ARENA *);
+
+	-- Finish ui work... cleanup interface here.
+	void ui_finish (void);
+
+	-- Draw the arena. Called on each iteration
+	void ui_drawarena (ARENA *);
+
+	-- Draw a message.
+	void ui_drawmessage (char *);
+
+	-- Get a string from the user and return it
+	char *ui_prompt (char *);
+
+	-- Get an ascii character as pressed on the keyboard.
+	-- This function is called until it return -1
+	-- Buffering is considered ...
+	int ui_getkey (void);
+

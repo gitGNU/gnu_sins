@@ -1,0 +1,19 @@
+!! THIS FILE IS OBSOLETED !!
+
+ai module for snake
+===================
+
+This module implements a simple brain for computer-controlled snakes.
+A configuration file is used to specify different parameters for
+the snakes brain (SNAKEROOT/etc/ai.conf).
+
+This parameters are at the moment only weights for the considerations
+taken by the snakes: snake distance, fruit distance, dead snakes proximity,
+snake presence between snake's head and fruit, snake occupation of a 3-pixel
+side square, random will, inertia.
+
+Future expansion may introduce modification factors of these parameters
+in function of snake's lenght, score, time, ... whatever !
+
+
+

@@ -1,0 +1,218 @@
+#8x8
+
+aaaaaaaa # EMPTY
+aaaaaaaa
+aaaaaaaa
+aaaaaaaa
+aaaaaaaa
+aaaaaaaa
+aaaaaaaa
+aaaaaaaa
+
+aaabbaaa # SNAKEa
+abbbbbba
+abbccbba
+bbcbbcbb
+bbcbbcbb
+abbccbba
+abbbbbaa
+aaabbaaa
+
+aaabbaaa # SNAKEb
+abbbcbba
+abbccbba
+bbbbcbbb
+bbbbcbbb
+abbbcbba
+abbbbbaa
+aaabbaaa
+
+aaabbaaa # SNAKEc
+abbccbba
+abcbbcba
+bbbbbcbb
+bbbcbbbb
+abccccba
+abbbbbaa
+aaabbaaa
+
+aaabbaaa # SNAKEd
+abbccbba
+abbbbcba
+bbbccbbb
+bbbbbcbb
+abbccbba
+abbbbbaa
+aaabbaaa
+
+aaabbaaa # SNAKEe
+abcbbcba
+abcbbcba
+bbccccbb
+bbbbbcbb
+abbbbcba
+abbbbbaa
+aaabbaaa
+
+aaabbaaa # SNAKEf
+abbbbbba
+abccccba
+bbcbbbbb
+bbccccbb
+abbbbcba
+abbccbaa
+aaabbaaa
+
+aaabbaaa # SNAKEg
+abbcccba
+abcbbbba
+bbcccbbb
+bbcbbcbb
+abbccbba
+abbbbbaa
+aaabbaaa
+
+aaabbaaa # SNAKEh
+abccccba
+abbbbcba
+bbbbcbbb
+bbbbcbbb
+abbbcbba
+abbbbbaa
+aaabbaaa
+
+aaabbaaa # SNAKEi
+abccccba
+abcbbcba
+bbccccbb
+bbcbbcbb
+abccccba
+abbbbbaa
+aaabbaaa
+
+aaabbaaa # SNAKEj
+abccccba
+abcbbcba
+bbccccbb
+bbbbbcbb
+abccccba
+abbbbbaa
+aaabbaaa
+
+aaaeeaaa # FRUITa
+aaaffaaa
+aaffffaa
+eeffffee
+aaffffaa
+aaaffaaa
+aaaeeaaa
+aaaeeaaa
+
+aaaeeaaa # FRUITe
+aeeeceea
+aeecceea
+eeeeceee
+eeeeceee
+aeeeceea
+aeeeeeaa
+aaaeeaaa
+
+aaaeeaaa # FRUITc
+aeecceea
+aeceecea
+eeeeecee
+eeeceeee
+aeccccea
+aeeeeeaa
+aaaeeaaa
+
+aaaeeaaa # FRUITd
+aeecceea
+aeeeecea
+eeecceee
+eeeeecee
+aeecceea
+aeeeeeaa
+aaaeeaaa
+
+aaaeeaaa # FRUITe
+aeceecea
+aeceecea
+eeccccee
+eeeeecee
+aeeeecea
+aeeeeeaa
+aaaeeaaa
+
+aaaeeaaa # FRUITf
+aeeeeeea
+aeccccea
+eeceeeee
+eeccccee
+aeeeecea
+aeecceaa
+aaaeeaaa
+
+aaaeeaaa # FRUITg
+aeecccea
+aeceeeea
+eeccceee
+eeceecee
+aeecceea
+aeeeeeaa
+aaaeeaaa
+
+aaaeeaaa # FRUITh
+aeccccea
+aeeeecea
+eeeeceee
+eeeeceee
+aeeeceea
+aeeeeeaa
+aaaeeaaa
+
+aaaeeaaa # FRUITi
+aeccccea
+aeceecea
+eeccccee
+eeceecee
+aeccccea
+aeeeeeaa
+aaaeeaaa
+
+aaaeeaaa # FRUITj
+aeccccea
+aeceecea
+eeccccee
+eeeeecee
+aeccccea
+aeeeeeaa
+aaaeeaaa
+
+ajaaaaaa # EXSNAKE
+aajajaaj
+aaajajaa
+aajjjjaa
+aajajaaa
+aaajajaa
+aaaaaaaj
+aaajaaaa
+
+aaaaabaa # WALL
+bbbbbbbb
+aabaaaaa
+bbbbbbbb
+aaaaabaa
+bbbbbbbb
+aabaaaaa
+bbbbbbbb
+
+aaaaaaaa # UNKNOWN
+aabbbaaa
+abaaabaa
+aaaabaaa
+aaabaaaa
+aaaaaaaa
+aaabaaaa
+aaaaaaaa
+

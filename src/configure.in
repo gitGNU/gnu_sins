@@ -1,0 +1,99 @@
+dnl Process this file with autoconf to produce a configure script.
+AC_INIT(sins.h)
+
+dnl This is what is going to be substituted
+AC_SUBST(VGA_CFLAGS)
+AC_SUBST(VGA2_CFLAGS)
+AC_SUBST(CURSES_CFLAGS)
+AC_SUBST(X_CFLAGS)
+AC_SUBST(build_list)
+
+dnl Generate configuration header file
+AC_CONFIG_HEADER(config.h)
+
+dnl Features.
+
+AC_ARG_ENABLE(cmdfifo, \
+  --disable-cmdfifo       Disable command fifo interface,
+  if test "$enable_cmdfifo" = "no"; then
+    AC_MSG_RESULT(*--> disabling fifo command interface)
+    AC_DEFINE(DISABLE_CMDFIFO)
+  fi
+)
+
+AC_ARG_ENABLE(timeout, \
+  --disable-timeout       Disable player timeout,
+  if test "$enable_timeout" = "no"; then
+      AC_MSG_RESULT(*--> disabling player timeout) 
+      AC_DEFINE(DISABLE_TIMEOUT)
+  fi
+)
+
+dnl Checks for programs.
+AC_PROG_CC
+if test "$GCC" = "yes"; then
+  CFLAGS="$CFLAGS -Wall"
+fi
+
+dnl Checks for header files.
+AC_HEADER_STDC
+#AC_CHECK_HEADERS(fcntl.h sys/time.h unistd.h)
+AC_CHECK_HEADERS(getopt.h)
+
+dnl Checks for typedefs, structures, and compiler characteristics.
+#AC_TYPE_SIZE_T
+
+dnl Checks for library functions.
+#AC_TYPE_SIGNAL
+#AC_CHECK_FUNCS(strerror)
+AC_CHECK_FUNCS(getopt_long)
+AC_CHECK_FUNCS(usleep)
+
+dnl Packages.
+AC_ARG_WITH(readline, \
+  --with-readline         Support fancy command line editing,
+  if test "$with_readline" != "no"; then
+    AC_MSG_RESULT(*--> checking for GNU readline)
+    AC_CHECK_HEADERS(readline.h readline/readline.h, break)
+    AC_CHECK_LIB(readline, readline,
+      AC_DEFINE(WITH_READLINE, 1)
+      CURSES_CFLAGS="$CURSES_CFLAGS -lreadline"
+      AC_MSG_RESULT(*--> GNU readline support enabled),
+      AC_MSG_RESULT(*--> GNU readline support disabled)
+    )
+  fi
+)
+
+############################################################################
+# UI Module selection
+#
+
+dnl User Interface Module
+
+build_list="dumb-sins ansi-sins"
+
+AC_CHECK_LIB(vga, vga_init,
+      VGA_CFLAGS="$VGA_CFLAGS -lvga"
+      VGA2_CFLAGS="$VGA2_CFLAGS -lvga -lvgagl"
+      build_list="$build_list vga-sins vga2-sins"
+)
+
+AC_CHECK_LIB(curses, initscr,
+      CURSES_CFLAGS="$CURSES_CFLAGS -lcurses"
+      build_list="$build_list curses-sins",
+      AC_CHECK_LIB(ncurses, initscr,
+        CURSES_CFLAGS=" -lncurses"
+        build_list="$build_list curses-sins"
+      )
+)
+
+AC_PATH_X
+if test "EMPTY$no_x" = "EMPTY"; then
+      X_CFLAGS="$X_CFLAGS -L$x_libraries -lX11 -I$x_includes"
+      build_list="$build_list X-sins"
+fi
+
+############################################################################
+
+
+AC_OUTPUT(Makefile)

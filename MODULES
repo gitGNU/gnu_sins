@@ -1,0 +1,243 @@
+--------------------------------------------------------------------------------
+MODULES IMPLEMENTATION (0.15)
+--------------------------------------------------------------------------------
+
+A snake module can implement one or more snakes players.
+
+The modules.c source file contains a function called ``init_modules''
+which in turn will call init functions of all modules. You' ll have to
+add your init function call there.
+
+The module's init function returns int and takes no arguments.
+
+This function must create one or more snakes with the snake_make() function
+
+	snake *mysnake1, *mysnake2;
+
+	mysnake1 = snake_make ();
+	mysnake2 = snake_make ();
+
+If needed you can keep snakes personal data in a structure and assign
+the structure pointer to the ``brain'' element of the snake structure,
+which is a void *.
+
+	/* this is an example structure, you can make your own */
+	typedef struct t_brain {
+		DIRECTION preferred_dir;
+	} brain;
+
+	brain *mybrain1, *mybrain2; 
+
+	mybrain1 = (brain *) malloc (sizeof(brain));
+	mybrain2 = (brain *) malloc (sizeof(brain));
+
+        mybrain1->preferred_dir = UP;
+        mybrain2->preferred_dir = DOWN;
+
+	mysnake1->brain = mybrain1;
+	mysnake2->brain = mybrain2;
+
+Now you have to define the callback function, that will be called at
+player's turn with one argument: the player's pointer.
+
+	DIRECTION myplay ( snake *mysnake )
+	{
+		brain *mybrain;
+
+		/* you MUST cast this */
+		mybrain = (brain *) mysnake->brain;
+
+		/* this is how you set the new direction */
+		return mybrain->preferred_dir;
+	}
+
+
+This function's reference must be assigned to the ``play'' element
+of your snakes:
+
+	mysnake1->play = &myplay;
+	mysnake2->play = &myplay;
+
+Finally you can register the new players:
+
+	int player1, player2;
+	
+	player1 = register_player (mysnake1);
+	player2 = register_player (mysnake2);
+
+Then compile your source with the -c flag and make an object file (mod_your.o).
+
+Add this object to the MODULES line in the Makefile and make. Good luck!
+
+
+-------------------------
+MORE ON CALLBACK FUNCTION
+-------------------------
+
+snake structure
+===============
+
+The callback function can modify everything of a snake:
+
+	/* snake structure from modules.h */
+	typedef struct t_snake {
+		int playernum;			/* player number */
+		char name[MAXNAMLEN];		/* snake's name */
+		int look;			/* snake's look */
+		snakebody *head;		/* snake's head chain */
+		snakebody *tail;		/* snake's tail chain */
+		int length;			/* snake's length */
+		int grow;			/* snake's growing state */
+		int died;			/* did this snake die? */
+		int dir;			/* snake's movement direction */
+		unsigned long int score;	/* score */
+		DIRECTION (*play)();		/* decision taker */
+		void *brain;			/* snake's brain */
+	} snake;
+
+You SHOULD only touch the ``brain'' element and contents.
+
+The ``grow'' flag is used by the movement engine to make the snake
+grow: when greater then 0 the snake is grown by 1 and the flag is decremented.
+
+The ``died'' flag must be 0 in order to be alive.
+Set it to 1 for a suicide. 
+
+The ``score'' element is not worth touching, unless you really feel
+cool doing it ... 
+
+The ``head'' and ``tail'' are the first and the last rings of the body chain
+you could have fun with it, but I never tried, check it out!
+
+The ``look'' element is obsolete.
+It gave the visual rappresentation of the snake, but that's UI-dependent.
+Shouldn't play with it, it is assigned by ``register_player()''.
+
+scanning the arena
+==================
+
+The arena (play field) is a *sprite* bidimensional array.
+To scan the whole arena you should do something like:
+
+	int y, x;
+	spite *sp;
+
+	/* ARENA_HEIGHT and ARENA_WIDTH are macros defined in modules.h */
+	for ( y=0; y<ARENA_HEIGHT; y++ )
+		for ( x=0; x<ARENA_WIDTH; x++ )
+			sp = ARENAGET(y,x);
+
+Then you can check the content of the arena sprite with the
+macros defined in snake.h:
+
+	IS_FRUIT(sp)
+	IS_SNAKE(sp)
+	IS_EXSNAKE(sp)
+	IS_WALL(sp)	/* for later use */
+
+sp is NULL if the sprite is empty
+
+	
+moving cells
+============
+
+Since the screen is a round surface (exit right enter left, exit down enter up)
+you might want to have an external function move arena-inspecting cells for
+you. You do have it !
+
+	extern void move_cell ( cell *from, DIRECTION dir, int steps );
+
+By the way, the cell structure:
+
+	 /* board cell */
+	 typedef struct t_cell
+	 {
+		int x;
+		int y;
+	 } cell;
+
+Since I didn't say it yet, here is the snakebody:
+
+	/* snake body (a sprite) */
+	typedef struct t_snakebody
+	{
+		int type;
+		struct t_snake *self;
+		struct t_cell cell;
+		struct t_snakebody *next;
+		struct t_snakebody *prev;
+	} snakebody;
+
+What about:
+
+	void myplay (snake *)
+	{
+		move_cell(s->head, s->dir, 1);
+	}
+
+... Don't try it at home !
+   	
+
+fruit
+=====
+
+The fruit is exported as a struct t_fruit:
+
+	extern fruit frt;
+
+	/* fruit structure */
+	typedef struct t_fruit {
+		int type;
+		struct t_cell cell;
+		int value;
+	} fruit;
+
+
+keyboard
+========
+
+The input queue may be scanned with the function fetchtypein().
+This function will return all queued characters.
+Will return -1 on empty queue.
+
+	while ( (ch=fetchtypein()) != -1 )
+	{
+		...
+	}
+
+Don't bother about other players, the same queue will be available
+for all of them.
+
+
+-----------------------------------------------------------------
+COMMANDS
+-----------------------------------------------------------------
+
+Since version 0.7 command handlers may be registered by modules.
+
+Commands may be given in the configuration file, as arguments when
+starting the game, during the game in command mode (enter with ``:''),
+or througt a fifo if compiled with the --enable-cmdfifo argument.
+
+The command handler function will be given as argument the string given
+AFTER the command itself and is triggered whenever a user command starts
+with its label (rather confusing, sorry).
+
+Prototype: int CMD_handler(char *);
+
+Must return 1 on success, -1 on error (no way of returning what kind of
+error occurred, syntax error is assumed and the help string is returned)
+
+To register the command use the register_command function with three
+arguments: the command label, a pointer to the handler function and an
+help string.
+
+Prototype: int register_command (char *, int (*)(char *), char *help);
+
+The command label must be shorter then MAXCMDLBLLEN. The command line
+composed of the command label PLUS the command arguments can't be
+longer then MAXCMDLINELEN. The help string should be short enought to
+fit on a line of the game display area (variable actually.. duh!).
+
+
+

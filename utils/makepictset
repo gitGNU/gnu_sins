@@ -1,0 +1,60 @@
+#!/bin/sh
+
+PICTS="
+EMPTY:a
+SNAKE0:b
+SNAKE1:b
+SNAKE2:b
+SNAKE3:b
+SNAKE4:b
+SNAKE5:b
+SNAKE6:b
+SNAKE7:b
+SNAKE8:b
+SNAKE9:b
+FRUIT0:g
+FRUIT1:g
+FRUIT2:g
+FRUIT3:g
+FRUIT4:g
+FRUIT5:g
+FRUIT6:g
+FRUIT7:g
+FRUIT8:g
+FRUIT9:g
+EXSNAKE:i
+WALL:g
+UNKNOWN:o
+"
+
+if [ -z "$2" ]; then
+	echo "Usage: $0 <width> <height>" >&2
+	exit 1
+fi
+
+width=$1
+height=$2
+
+echo "#"$width"x"$height
+echo
+for pictdef in $PICTS; do
+	pictname=`echo $pictdef | cut -d: -f1`
+	pictcol=`echo $pictdef | cut -d: -f2`
+	#echo "# $pictname"
+	pict="# $pictname\n"
+	i=$width
+	while [ $i -gt 0 ]; do
+ 		j=$height
+		line=''
+		while [ $j -gt 0 ]; do
+			line=$line$pictcol
+			j=$[j-1]
+		done
+		#echo $line 
+		pict=$pict$line"\n"
+		i=$[i-1]
+	done
+	echo -e $pict
+	#pictset=$pictset$pict"\n"
+done
+#echo -e $pictset

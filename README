@@ -1,0 +1,24 @@
+Readme for sins
+================
+
+SINS (Sins Is Not Snake) is a simple nibble-like game made as a
+learning-c project.
+
+Once in a while a add some stupid thing, just to see wheter I'm able to
+and how much time do I need to waste for it.
+
+Feel free to do whatever you want with it but stripping off its freedom.
+
+see INSTALL for instructions on building it.
+
+see RUN for tips about running it
+
+see HISTORY for a change log.
+
+see TODO for a to-do list.
+
+see MODULES for a modules implementation overview.
+
+see PORTABILITY for portability issues
+
+--san@cobalt.rmnet.it

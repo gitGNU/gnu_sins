@@ -1,0 +1,28 @@
+This file contains any messages produced by compilers while
+running configure, to aid debugging if configure makes a mistake.
+
+configure:574: checking for gcc
+configure:651: checking whether the C compiler (gcc  ) works
+configure:665: gcc -o conftest    conftest.c  1>&5
+configure:685: checking whether the C compiler (gcc  ) is a cross-compiler
+configure:690: checking whether we are using GNU C
+configure:699: gcc -E conftest.c
+configure:714: checking whether gcc accepts -g
+configure:746: checking how to run the C preprocessor
+configure:767: gcc -E  conftest.c >/dev/null 2>conftest.out
+configure:807: checking for ANSI C header files
+configure:820: gcc -E  conftest.c >/dev/null 2>conftest.out
+configure:887: gcc -o conftest -g -O2 -Wall   conftest.c  1>&5
+configure: In function `main':
+configure:882: warning: implicit declaration of function `exit'
+configure:915: checking for getopt.h
+configure:925: gcc -E  conftest.c >/dev/null 2>conftest.out
+configure:959: checking for getopt_long
+configure:987: gcc -o conftest -g -O2 -Wall   conftest.c  1>&5
+configure:1014: checking for usleep
+configure:1042: gcc -o conftest -g -O2 -Wall   conftest.c  1>&5
+configure:1172: checking for vga_init in -lvga
+configure:1191: gcc -o conftest -g -O2 -Wall   conftest.c -lvga   1>&5
+configure:1216: checking for initscr in -lcurses
+configure:1235: gcc -o conftest -g -O2 -Wall   conftest.c -lcurses   1>&5
+configure:1305: checking for X

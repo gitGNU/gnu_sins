@@ -1,0 +1,259 @@
+#8x8
+
+#	a      - black.
+#	b      - blue.
+#	c      - green.
+#	d      - cyan.
+#	e      - red.
+#	f      - magenta.
+#	g      - brown.
+#	h      - grey.
+#	i      - dark grey (light black).
+#	j      - light blue.
+#	k      - light green.
+#	l      - light cyan.
+#	m      - light red.
+#	n      - light magenta.
+#	o      - yellow (light brown).
+#	p      - white (light grey).
+
+# EMPTY
+aaaaaaaa
+aaaaaaaa
+aaaaaaaa
+aaaaaaaa
+aaaaaaaa
+aaaaaaaa
+aaaaaaaa
+aaaaaaaa
+
+# SNAKE0
+aacbcbaa
+acbcbcba
+cbcbcbcb
+bcbcbcbc
+cbcbcbcb
+bcbcbcbc
+abcbcbca
+aabcbcaa
+
+# SNAKE1
+mnmnmnmn
+nmnmnmnm
+mnmnmnmn
+nmnmnmnm
+mnmnmnmn
+nmnmnmnm
+mnmnmnmn
+nmnmnmnm
+
+# SNAKE2
+ffggffgg
+ggffggff
+ffggffgg
+ggffggff
+ffggffgg
+ggffggff
+ffggffgg
+ggffggff
+
+# SNAKE3
+iijjiijj
+jjiijjii
+iijjiijj
+jjiijjii
+iijjiijj
+jjiijjii
+iijjiijj
+jjiijjii
+
+# SNAKE4
+llkkllkk
+kkllkkll
+llkkllkk
+kkllkkll
+llkkllkk
+kkllkkll
+llkkllkk
+kkllkkll
+
+# SNAKE5
+ppooppoo
+ooppoopp
+ppooppoo
+ooppoopp
+ppooppoo
+ooppoopp
+ppooppoo
+ooppoopp
+
+# SNAKE6
+mmnnmmnn
+nnmmnnmm
+mmnnmmnn
+nnmmnnmm
+mmnnmmnn
+nnmmnnmm
+mmnnmmnn
+nnmmnnmm
+
+# SNAKE7
+eecceecc
+cceeccee
+eecceecc
+cceeccee
+eecceecc
+cceeccee
+eecceecc
+cceeccee
+
+# SNAKE8
+bbnnbbnn
+nnbbnnbb
+bbnnbbnn
+nnbbnnbb
+bbnnbbnn
+nnbbnnbb
+bbnnbbnn
+nnbbnnbb
+
+# SNAKE9
+eebbeebb
+bbeebbee
+eebbeebb
+bbeebbee
+eebbeebb
+bbeebbee
+eebbeebb
+bbeebbee
+
+# FRUIT0
+aaaeeaaa
+aeeeceea
+aeecceea
+eeeeceee
+eeeeceee
+aeeeceea
+aeeeeeaa
+aaaeeaaa
+
+# FRUIT1
+aaaeeaaa
+aeecceea
+aeceecea
+eeeeecee
+eeeceeee
+aeccccea
+aeeeeeaa
+aaaeeaaa
+
+# FRUIT2
+aaaeeaaa
+aeecceea
+aeeeecea
+eeecceee
+eeeeecee
+aeecceea
+aeeeeeaa
+aaaeeaaa
+
+# FRUIT3
+aaaeeaaa
+aeceecea
+aeceecea
+eeccccee
+eeeeecee
+aeeeecea
+aeeeeeaa
+aaaeeaaa
+
+# FRUIT4
+aaaeeaaa
+aeeeeeea
+aeccccea
+eeceeeee
+eeccccee
+aeeeecea
+aeecceaa
+aaaeeaaa
+
+# FRUIT5
+aaaeeaaa
+aeecccea
+aeceeeea
+eeccceee
+eeceecee
+aeecceea
+aeeeeeaa
+aaaeeaaa
+
+# FRUIT6
+aaaeeaaa
+aeccccea
+aeeeecea
+eeeeceee
+eeeeceee
+aeeeceea
+aeeeeeaa
+aaaeeaaa
+
+# FRUIT7
+aaaeeaaa
+aeccccea
+aeceecea
+eeccccee
+eeceecee
+aeccccea
+aeeeeeaa
+aaaeeaaa
+
+# FRUIT8
+aaaeeaaa
+aeccccea
+aeceecea
+eeccccee
+eeeeecee
+aeccccea
+aeeeeeaa
+aaaeeaaa
+
+# FRUIT9
+aaaeeaaa
+aeccccea
+aeceecea
+eeccccee
+eeeeecee
+aeccccea
+aeeeeeaa
+aaaeeaaa
+
+# EXSNAKE
+ajaaaaaa
+aajajaaj
+aaajajaa
+aajjjjaa
+aajajaaa
+aaajajaa
+aaaaaaaj
+aaajaaaa
+
+# WALL
+aaaaabaa
+bbbbbbbb
+aabaaaaa
+bbbbbbbb
+aaaaabaa
+bbbbbbbb
+aabaaaaa
+bbbbbbbb
+
+# UNKNOWN
+aaaaaaaa
+aabbbaaa
+abaaabaa
+aaaabaaa
+aaabaaaa
+aaaaaaaa
+aaabaaaa
+aaaaaaaa
+

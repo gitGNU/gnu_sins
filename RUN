@@ -1,0 +1,23 @@
+curses libraries may seek terminfo database in weird places
+I have ncurses.so.3.4 looking for /usr/share/terminfo
+and ncurses.so.3.0 looking in /etc/terminfo or /usr/lib/terminfo
+
+%
+
+
+The environmental variable LD_PRELOAD can be set to
+force a specific library to be loaded after the other to 
+override functions. It might come handy when experiencing
+troubles with libncuses.so.4 (LD_PRELOAD=/path/to/libncuses.so.3)
+
+
+%
+
+Running `sins' itself will not get you in the game,
+you need to issue commands to create the players.
+Commands are issued with the `:' (eval) key while running
+or with the 'source <file>' command on command line.
+The file ~/.sinsrc is sourced automatically.
+(run *-sins -L for a list of available commands)
+
+%

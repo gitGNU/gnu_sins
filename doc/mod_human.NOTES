@@ -1,0 +1,14 @@
+!! THIS FILE IS OBSOLETED !!
+
+human module for snake
+======================
+
+This module implements the brain of human-controlled snakes.
+It' s just a key-press checker, nothing more.
+
+The configuration file (SNAKEROOT/etc/human.conf) contains
+human-controlled snake's parameters (which are in fact just
+movement keys).
+
+Read the comments for the record format.
+

@@ -1,0 +1,214 @@
+
+snake-0.2
+=========
+
+This is a simple nibble-like game made as a learning-c project.
+
+Once in a while a add some stupid thing, just to see wheter I'm able to
+and how much time do I need to waste for it.
+
+Feel free to do whatever you want with it.
+
+
+modules
+=======
+
+Since version 0.2 all players are loaded from module files.
+
+Shipped with this version are two modules, one for human players
+and the other for computer controlled players. Both modules can
+handle more then one player and each one can be configured to act
+differently.
+
+Module sources are in src/modules, where you also find infos about
+making your own modules.
+
+Module configurations are in etc/*.conf
+
+
+--------------------------------------------------------------------------------
+MODULES IMPLEMENTATION
+--------------------------------------------------------------------------------
+
+A snake module can implement one or more snake players.
+
+To make your own you need to export a function called ``NAME_module_init''.
+Where NAME is the name of the module.
+The function returns int and takes no arguments.
+
+This function must create one or more snake with the snake_make function
+
+	snake *mysnake1, *mysnake2;
+
+	mysnake1 = snake_make ();
+	mysnake2 = snake_make ();
+
+If needed you can keep snakes personal data in a structure and assign
+the structure pointer to the ``brain'' element of the snake structure,
+which is a void *.
+
+	typedef struct t_brain {
+		int preferred_dir;
+	} brain;
+
+	brain *mybrain1, *mybrain2; 
+
+	mybrain1 = (brain *) malloc (sizeof(brain));
+	mybrain2 = (brain *) malloc (sizeof(brain));
+
+        mybrain1->preferred_dir = UP;
+        mybrain2->preferred_dir = DOWN;
+
+	mysnake1->brain = mybrain1;
+	mysnake2->brain = mybrain2;
+
+Now you have to define the callback function, that will be called at
+player's turn with one argument: the player's pointer.
+
+	void myplay ( snake *mysnake )
+	{
+		brain *mybrain;
+
+		/* you MUST cast this */
+		mybrain = (brain *) mysnake->brain;
+
+		/* this is how you set the new direction */
+		mysnake->dir = mybrain->preferred_dir;
+	}
+
+
+This function's reference must be assigned to the ``play'' element
+of your snakes:
+
+	mysnake1->play = &myplay;
+	mysnake2->play = &myplay;
+
+Finally you can register the new players:
+
+	int player1, player2;
+	
+	player1 = register_player (mysnake1);
+	player2 = register_player (mysnake2);
+
+
+Then compile your source with the -shared flag and make a .so file.
+WARNING! file MUST be named the same of the module_init func:
+	mymodule.so MUST contains mymodule_module_init()
+
+The snake executables will dlopen all *.so files in $SNAKEROOT/modules/
+and call the NAME_module_init() exported function. The function must return
+0 on success and != 0 on failure.
+
+-------------------------
+MORE ON CALLBACK FUNCTION
+-------------------------
+
+snake structure
+===============
+
+The callback function can modify everything of a snake:
+
+   /* snake structure from snake.h */
+   typedef struct t_snake {
+   	chtype look;			/* snake's look (how it looks) */
+   	chain *head;			/* snake's head chain */
+   	chain *tail;			/* snake's tail chain */
+   	int length;			/* snake's length */
+   	int grow;			/* snake's growing state */
+   	int died;			/* snake's death state */
+   	int dir;			/* snake's movement direction */
+   	unsigned long int score;	/* score */
+   	void (*play)(struct t_snake *); /* decision taker */
+   	void *brain;			/* snake's brain */
+   } snake;
+
+You SHOULD only touch the ``dir'' element and the ``brain'' contents.
+
+The ``grow'' flag is used by the movement engine to make the snake
+grow: when greater then 0 the snake is grown by 1 and the flag is decremented.
+
+The ``died'' flag must be 0 in order to be alive.
+Set it to 1 for a suicide. Set it to 2 to imbalsamate(?).
+
+The ``score'' element is not worth touching, unless you really feel
+cool doing it ... 
+
+The ``head'' and ``tail'' are the first and the last rings of the body chain
+you could have fun with it, but I never tried, check it out!
+
+The ``look'' element gives the visual rappresentation of the snake.
+Shouldn't play with it, it is assigned by ``register_player()''.
+
+inspecting the screen
+=====================
+
+The board is (sadly) the curses screen itself with a box surrounding it.
+
+To scan the whole board you should do something like:
+
+	int y, x;
+	chtype ch;
+
+	/* ARENA_HEIGHT and ARENA_WIDTH are defined in snake.h */
+	for ( y=0; y<ARENA_HEIGHT-1; y++ )
+		for ( x=0; x<ARENA_WIDTH-1; x++ )
+			ch = ARENAGET(y,x);
+
+Then you can check ch with the macros defined in snake.h:
+
+	IS_FRUIT(ch)
+	IS_SNAKE(ch)
+
+	
+moving cells
+============
+
+Since the screen is a round surface (exit right enter left, exit down enter up)
+you might want to have an external function move screen inspecting cells for
+you. You CAN !
+
+	extern void move_cell ( cell *from, int dir, int steps );
+
+By the way, the cell structure:
+
+	 /* board cell */
+	 typedef struct t_cell
+	 {
+		int x;
+		int y;
+	 } cell;
+
+Since I didn't say it yet, here is the chain structure:
+
+	/* chain of cells */
+	typedef struct t_chain
+	{
+		struct t_cell cell;
+		struct t_chain *next;
+	} chain;
+
+What about:
+
+	void myplay (snake *)
+	{
+		move_cell(s->head, s->dir, 1);
+	}
+
+... Don't try it at home !
+   	
+
+fruit
+=====
+
+The fruit is exported as a cell:
+
+	extern cell fruit;
+
+
+keyboard
+========
+
+The key pressed on keyboard is available in the external variable ``typein''
+
+	extern int typein;
+

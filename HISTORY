@@ -1,0 +1,607 @@
+HISTORY
+
+0.22
+
+0.21
+	- utils/makepictset improved [ ahahah ;) ]
+
+	- ui_picts.h:
+		default pictset copied from spheres_8x8 (I think this
+		is the best apart from players' number recognition)
+
+	- mod_wall.c:
+		added a bare wall support module
+		now usable but very very boring interface
+
+	- arena.c:
+		added range check in arenaput and arenaget
+
+	- ui_X.c:
+		o Bug fixed in ui_drawarena when configured to use
+		  arenawin pixmap (USE_ARENAWIN_PIXMAP). Now is
+		  pretty faster ..
+		o more cleanup in ui_finish()
+		o better handling of keyboard states (no more
+		  private control of `shift' pressed, use of
+		  xevent.state instead)
+
+0.20
+	- ui_X.c:
+		o arenagc tile pixmap is set by send_pictset.
+		  now init_background just fills the window or
+		  the arenawin pixmap (no more clear to permit
+		  working on the pixmap)...
+		o define USE_AFTER_FUNCTION renamed to DEBUG_X_PROTOCOL
+		o XSync called after arenawin mapping to discard all
+		  pending events thus avoiding a big Expose at startup
+
+0.19
+	- arena.c:
+		BUG_FIX: arena.board initialized with all zeroes.
+
+	- ui_X.c:
+		o default font definition changed to "*-misc-*".
+		o modified send_pictset so to reduce ChangeGC protocol
+		  requests to the server. Also incorporates draw_pict
+		  ( used exclusively by send_pictset anyway ).
+		o added define REDRAW_ARENA_ON_PICTSET_CHANGE
+		  so you can reduce network traffic undefining it
+		o added USE_AFTER_FUNCTION as a bare Xprotocol
+		  traffic checker
+		o create_arenawin(): pixmap used for the cursor
+		  is freed after use
+		o init_background: background initialization is done
+		  by clearing the window after send_pictset set its
+		  background pixmap.
+		  
+
+0.18
+	- mod_ai.c:
+		added a bare final check for walls (pretty dumb...)
+
+	- snake_move.c:
+		kill a snake when hits a wall
+
+	- sins.h:
+		added IS_WALL macro
+
+	- main.c:
+		added pause_game(), resume_game() public functions
+		updated parse_input.c accordingly ...
+
+	- ui_X.c:
+		added a USE_ARENAWIN_PIXMAP define 
+
+		fixed a bug in SPRITEINMESSAGEBOX, changed
+		exposure events handling, maybe reducing network traffic
+
+	- main.c:
+	  delay.c:
+	  sins.h:
+	  parse_input.c:
+		Delay is now of type `long' and is expressed in
+		microseconds (no more milliseconds). Its value
+		is checked agains the difference between timeval 
+		got at each game_loop() and tells when it's time
+		to play or when it's only time to refresh the 
+		output ( ui_drawarena() calls ) and parse the input
+		( parse_input() calls ).
+		MAXDELAY have been updated to 2 seconds (2000000 msec)
+		and DEFAULTDELAY/DELAYSTEP defines have been added
+		in sins.h.
+		parse_input() does not reset typein queue unless
+		the turn is advanced ...
+
+	- main.c:
+		extracted a game_loop() function from the main().
+
+	- delay.c:
+		always print new value when changing delay
+
+	- parse_input.c:
+		ui_drawarena called while waiting for an answer to
+		the "really quit?" question (with no delay here ...)
+
+		restyled the 'q' and 'Q' cases handling ...
+
+	- ui_X.c:
+		removed all those fontminbearing things...
+		reduced stored information in a single structure
+		called `msgbox' which contains font origin and
+		boundaries ...
+
+		Used a region to keep exposure informations.
+
+0.17
+	- ui_X.c:
+		Set a white border of 1 pixel for the arena window.
+		It might be confusing in case of a white background ...
+		Anyway, the WM will usually discard that border setting
+		its own one instead ...
+
+		Set Class Hints (#define USE_CLASS_HINTS)
+
+	- Makefile.in:
+		sins.h added as dependency for all build rules
+
+	- sins.h:
+		removed `STOP' direction
+		removed IS_VDIR, IS_HDIR, IS_ORTOGONAL macros
+		redefined IS_OPPOSITE macros removing `abs' call.
+		removed `look' element from snake structure.
+
+	- mod_ai.c:
+		`play' prototype corrected
+		other fixes on direction type usage.
+
+	- snake.c:snake_init():
+		bug fixed, died flag not set ...
+
+	- ui_X.c:
+		invisible cursor set for arenawindow
+
+		font flickering reduced. message box is not always
+		deleted before the other drawing ...
+		removed strdup calls.
+
+		commands loadfont and fontcolor will work even
+		before screen initialization
+
+		bug fix in default window dimension
+		computation.
+
+		Backing store on arenawin made optional
+		( #define USE_BACKINGSTORE for this )
+
+		Set size hints for arena window.
+		This will forbit window resize if windows managers
+		honour those hints... resizing is handled anyway
+		for windows managers that do not.
+		( #define USE_SIZE_HINTS for this )
+
+0.16
+	- delay.c:
+		bug fix in CMD_delay. Now prints the current
+		delay value when called without arg.
+
+	- ui_X.c:
+		implemented ui_prompt.
+		better handling of fonts (yet to be finished).
+		new commands `fontcolor <colordef>' and
+		`loadfont <fontdef>' (only valid after screen
+		initialization)
+
+0.15
+	- ui_X.c:
+		started to test some font usage ...
+		must define TEST_FONTS in order to check it ..
+
+	- sins.h:
+
+		typedef int DIRECTION
+		.. changes where needed ..
+		.. MODULES document updated ..
+
+	- ui_curses.c:
+
+		Bare color handling.
+		Color use can be controlled with the `colors [ ON | OFF ]'
+		command.
+		By default colors will be used if the terminal knowns
+		how to handle it.
+
+		New drawing optimization mechanism, copied from
+		ui_X and ui_vga ... an arena look map is kept
+		instead of an arena pointers map.
+
+	- mod_ai.c:
+		used the new macro LOOPDIRECTION
+
+		fixed a bug in the play function when 
+		looking for the first safe direction to take
+		( not so safe, but less buggy )
+
+	- New macro in sins.h:
+		LOOPDIRECTION(x):
+			loops on all directions setting `x' to
+			their integer values.
+
+	- snake structure change: element `play' is a function
+	  returning int (the direction itself). Modules are not
+	  more required to touch the snake structure. Instead
+	  their `play' functions will return the desired direction.
+	  We still touch the `brain' element though...
+
+	- New function: snake_init in snake.c. Called from main.c
+	  after arena initialization so to have the real dimensions
+	  of the arena before assigning initial directions.
+	  You can now use `kill <#>' commands on command line and
+	  initialization files.
+
+	- Main loop no more interrupted on game pause. Instead
+	  an extern variable game_paused is set by the parse_input 
+	  routine when hitting the spacebar. The main loop does not
+	  give play turns to the players if the game is paused but
+	  continues to redraw arena.
+
+	- DEFAULT_SEARCHPATH define moved to config.h
+	  and overwritten in Makefile so to point to
+	  $datadir/pictset and ~ (home)
+
+	- SEARCHPATHLEN define moved to snake_limits.h
+
+	- Makefile install rule will copy the share directory
+	  to $datadir
+
+
+0.14
+
+	- ui_X.c:
+		o redraw arena on resize events
+		o pixmap use for pictset storage
+		o handled shifts in ui_getkey() 
+		o dumb call to XKeycodeToKeysym at arena initialization
+		  to force client caching of mapping info
+		o redraw arenawin rectangle on Exposure events
+		o a set of 16 colors are looked up in the default
+		  colormap (XAllocColor)
+
+	- Added a sins shell wrapper that lets you choose your 
+		among available interfaces
+
+	- sins.h:
+		snake structure has two addictional elements:
+		a killer function and a destroyer function.
+		These should called before any other destruction
+		handling by the core module. 
+
+	- command.c:CMD_fifo():
+		an attempt is made to create the fifo
+
+	- Added a bare ANSI interface
+
+	- Fixed --with-readline handling (only links with curses version)
+	  Corrected document INSTALL
+
+	- First bare 'install' Makefile rule
+
+	- Rewritten the arena drawing optimization routine. 
+	  The old one made a wrong assumpion about sprite addresses.
+	  Since snake body units are allocated and freed while the
+	  game is running it was often happening that the same address
+	  contained different pices of a snake thus making the optimization
+	  routine think there was no need to update a cell of the screen
+	  while indeed it was needed. (is it clear ??)
+	  
+	- Added a public `game_pause()' function in parse_input.c
+
+0.13
+
+	- Makefile update: you do not specify user interface anymore.
+	  All interfaces are possibly built. To built a specific sins
+	  version use for example: make dumb-sins.
+
+	- Bare implementation of an X user interface
+	  (check #define USE_ROOT_WINDOW in ui_X.c)
+
+	- $HOME/.sinsrc is sourced at startup. No more config file
+	  or SNAKE_CONF environment.
+
+	- Added a -L (--list-commands) option to show all avaiable
+	  commands.
+
+	- Removed the -f <config> switch (use 'source <config>' instead)
+
+	- Renamed all exported UI functions. Now they all start with
+	  ``ui''. Removed updatescreen from the exported funx list.
+
+	- Executable are named after the ui_module used in linking
+
+	- Only a SPACEBAR will get you out of pause mode (SPACEBAR to enter)
+
+	- Messages disappear now after a given time (more or less
+	  indipendently from the current delay)
+
+	- Implemented `draw_messages' and `prompt' interface funx in
+	  ui_vga2.c
+
+	- Removed all stupid messages like "Yum", "CaboOOm" and the like..
+
+	- Bare font usage in ui_vga2.c (gl). Added -lvgagl in configure.in
+	  when --with-ui=vga2
+
+	- New format for the pictset file (ui_vga2). On the first line
+	  we need to have a line like this: "#WxH". Where 'W' and 'H'
+	  are integers. This will tell the pictset loader the Width and
+	  Height of each sprite. The new loadpictset command does not
+	  require a sprite size ( loadpictset [<fname>] ).
+
+	- A new directory ``utils'' has been created in the package.
+	  It now contains a makepictset script used to create a default
+	  pictset for ui_vga2 module. It also contains a script to send
+	  'loadpictset' commands to the engine via the fifo interface
+	  looping on all available pictsets in a directory.
+
+	- ui_vga2.c: you can't load a pictset with a different size from
+	  the one in use.
+
+0.12
+	- Added some new pictset :)
+
+	- fruit.c: command `mfprob <percent>' added so you can specify
+	  magic fruit probability at runtime.
+
+	- command.c: fixed a bug in CMD_cmdfifo that tried to fclose
+	  an inizialized FILE pointer.
+
+	- ui_vga2.c: command loadpictset with no arguments sets back the
+	  default pictset
+
+	- ui_vga2.c: bug fixed in pictset loading function
+
+	- ui_vga2.c reads now the SVGALIB_DEFAULT_MODE for a prefferred
+	  videomode
+	
+	- Name change from snake to sins (Sins Is Not Snake) due to
+	  a name conflict with the BSD classic snake.
+
+	- when a random free space on arena is needed we start from
+	  a random point and scan the whole arena. If no space is
+	  left we finish() the game (should we do differently?).
+	  Cases are: snake_make, init_fruit, snake_reset.
+
+	- added ui_vga.c support for -l and -c switches.
+	  two ui_vga.c new commands: ``spritesize <width> <height>''
+	  and ``border <num>''
+
+	- snake_make will mark snakes dead and set coordinates to
+	  0 when screen is not yet initialized. The main routine
+	  will reset all snakes before entering the main loop.
+	  This allows to parse all commands before screen initialization.
+
+	- player timeout and fifo interface are now on by default.
+	  use --disable-timeout and --disable-cmdfifo to disable them.
+
+	- added a public cell_distance(cell *, cell *) to snake_common.c
+	  (*could* be user by AI modules)
+
+	- QUIT_ON_LAST_DEATH define moved from snake.h to snake_snake.c
+
+	- made ui_vga change sprite dimensions based on -l and -c
+	  switches (rather contortous)
+
+	- implemented a *very* bare dumb interface (--with-ui=dumb)
+
+	- (temporary?) removed modules.h -- too hard to mantain...
+
+	- ARENA_HEIGHT and ARENA_WIDTH macros now directly access
+	  the global ARENA structure (for speed reasons.. later
+	  I should think about code separation)
+
+	- changed public init_graphics prototype to take
+	  ARENA * as argument.
+
+	- optimized arena drawing function in ui_curses.c
+	  and ui_vga.c -- only modified sprite in arena board
+	  are drawed.  For big displays (eg. curses ui within
+	  xterm 800x600 tiny font) you can see the difference.
+
+0.11
+	- implemented destroy command for snake
+	  ``destroy <snakenum>''
+
+	- changed ALL ``zoo'' loops. a NULL pointer
+	  does NOT rapresent the end of the players set
+	  anymore. Instead a NULL pointer is an EMPTY SLOT.
+	  All the slots are now scanned (0 .. MAXPLAYERS).
+
+	- implemented a bare vga user interface
+	  run configure with the --with-ui=vga argument
+	  to give it a try (always check Makefile after that)
+
+	- user Interface modules name change to ui_<name>
+
+	- AI snakes now check if the new position of their new head
+	  could be reached in one step by other snakes.
+
+	- added an implementation of usleep() using select()
+
+	- bug fixed in mod_ai.c: dump_score format changed
+
+	- CMD_ai may now be called without parameters (takes
+	  default weights for missing parameters)
+
+0.10
+
+	- bug fixed in snake_curses.c (missed up with screen
+	  on terminal error)
+
+	- added a GETSPRITE macro to obtain the sprite
+	  pointer given an ARENA pointer, an y and an x
+	  coordinate. This sould be used instead of ARENAGET
+	  by core modules (all but the player modules).
+	  PUTSPRITE should go next.
+
+	- draw_arena() takes now an ARENA pointer as
+	  argument
+
+	- struct arena_t typedef'd as ARENA
+
+	- delay implemented with usleep() instead of
+	  empty for loop on systems suppporting it
+
+	- added a snake_core.a rule in the Makefile
+	  contains all objects except GRAPHIC_MODULE
+	  and mod_*
+
+	- draw_motion() no more extern.
+	  snake_curses.c is the only module aware of it
+	  and will call draw_motion inside draw_arena(). 
+	  (motion visualization is optional in the graphic module)
+
+	- removed napms() call from snake_main.c
+	  ( curses dependent )
+	  sleep time now implemented as an empty for loop
+	  
+	- new getkey() function in snake_curses.c
+	  called in snake_parse_input.c instead of
+	  the curses-dependent getch()
+
+	- removed snake_menu.c module
+
+	- new order of initialization in snake_main.c:
+	  parse_cmdline_opts()
+	  init_{graphics,arena,fruit,modules}()
+	  parse_{config,cmdline_args}()
+
+	- finish_graphics() declared in snake_<gui>.c will take care
+	  of endwin() instead of finish() declared in snake_main.c 
+
+	- int i declared static in snake_main near setjmp
+	  to avoid loosing counter value
+
+0.9
+
+	- removed function draw_fruit_position from snake_curses.c
+	  [snake_fruit module will message() new position]
+
+	- removed function draw_delay from snake_curses.c
+	  [motion widget will show it]
+
+	- arena is now declared in snake_arena.c as a struct arena_t
+	  defined in snake.h.
+	  The new options ``--lines (l)'' and ``--cols (c)''
+	  set the ononimous elements of this structure.
+	  The arenainit function (snake_arena.c) does not take any argument
+	  now (it gets the lines and cols from the arena structure).
+	  The init_graphics function sets the lines and cols element
+	  to the maximum allowed size if set to 0.
+
+	- configuration file is now specified with the -f option (not -c)
+
+	- mod_ai.c: moved the scored direction structure in the snake
+	  brain ( a first kind of memory ? ).
+
+	- allocating/freeing memory for each and every snake movement
+	  was probably not a good idea. i declared a snakebody pointer
+	  in the snake_move.c module so to use the old tail as the
+	  new head when not growing.
+
+	- limits.h moved to snake_limits.h, created snake_compat.h.
+	  improved portability.
+
+	- removed eval_command (static in snake_command.c)
+
+	- parse_command removes now leading spaces in command string.
+
+	- New help command (not so friendly right now).
+
+	- Added an help string in the command_table structure (snake_command.c).
+	  Better structured command handler function interface:
+	  must return -1 on syntax error.
+
+	- Added ./configure option to enable TIMEOUT on AI modules
+
+
+0.8
+
+	- Autoconf-enabled !
+
+	- Bug fixed in mod_human (make_brain did not clean space allocated
+	  for the input key queue - now uses safe_calloc instead of safe_malloc)
+
+	- Added safe_calloc in snake_common.c
+
+	- Added a command line feature  (use ':' to get a prompt).
+	  readline can be used for this (define WITH_READLINE in config.h)
+
+	- Command handler functions (CMD_*) now check that 
+	  the given argument (char *) is not NULL before playing
+	  with it ...
+
+	- New registered commands: 'kill', 'trim', 'reset', 'quit'.
+
+	- New fifo interface for commands. Define COMMAND_FIFO
+	  in config.h and then specify a fifo file at startup
+	  or in the configuration file with the command 'cmdfifo'
+
+	- command line parsing now allows for configuration-file
+	  commands to be specified on command line.
+	  '-d' option disappears and leave the place for the new
+	  registered command 'delay #'
+	  Try: snake -c /dev/null 'delay 10' 'human j i l k'
+
+0.7.2
+
+	- added a 'reason' argument to safe_malloc (quicker debug)
+	  define DEBUG_MALLOC in snake_common.c to have malloc reasons
+	  printed on stderr
+
+	- HAVE_GETOPT_LONG and HAVE_GETOPT_H in config.h
+
+	- updatescreen() does now call touchwin to avoid screen
+	  scrabmling with some terminals.
+
+0.7
+
+	- rewritten the configuration algorytm. we now have a command
+	  table holding handler pointers for command label.
+	  register your commands with the register_command function !
+	  [snake_config.c]
+
+	- made snake_make, snake_kill, snake_trim, snake_reset be one
+	  file called snake_snake.c (does it make sense?)
+
+	- added safe_malloc and safe_realloc in snake_common.c
+	  ( will die on error )
+
+	- added a MAGIC_FRUIT_PROBABILITY define in snake_fruit.c.
+	  define it with a value between 0 (no magic fruits) and
+	  100 (only magic fruits)
+	  
+	- keyboard input must now be read by modules using the function
+	  fetchtypein(). it may be called multiple time (will return -1
+	  on empty queue). mod_human has now an input key queue in order
+	  to remember typed keys (at most MAXQUEUELEN [defaults to 2])
+
+	- bug fixes in snake_move (head-crashes sometime failed to kill)
+
+	- yet another menu rewrite (no more menu!), just use SPACE
+	  to pause the game and see the scores, 'q' to quit ('Q' to
+	  avoid questions), a number to reset a dead snake, '-' or '+'
+	  to decrease/increase speed.
+	  
+0.6
+
+	- rewritten the menu facility, now uses the message function
+
+	- rewritten the movement module so to handle head/tail
+	  crashes (removed injustice bug, which coused snakes
+	  to die because of lower or higher play precedence)
+	  
+0.5
+
+	- `play' functions are now time-wrapped
+	   so that too-complex brains won't slow down
+	   the game (that would be unfair)
+	   instead, brain coder should consider taking fast
+	   decisions and then fine tuning them while thinking
+
+	- added config.h with defines for play_limits and messages 
+
+0.4
+
+	- the arena is now a separate matrix, we now have a deeper
+	  knowledge of our world (we, the snakes!)
+
+	- added a user message facility (shall be a queue one day)
+	  this is in snake_messages.c
+
+	- added a module.h to be included by modules instead of snake.h
+
+
+0.3
+
+	- removed dynamic load of modules (portability issues)
+
+	- recognize a few options ( see snake --help )

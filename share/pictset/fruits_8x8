@@ -1,0 +1,238 @@
+#8x8
+
+#	a      - black.
+#	b      - blue.
+#	c      - green.
+#	d      - cyan.
+#	e      - red.
+#	f      - magenta.
+#	g      - brown.
+#	h      - grey.
+#	i      - dark grey (light black).
+#	j      - light blue.
+#	k      - light green.
+#	l      - light cyan.
+#	m      - light red.
+#	n      - light magenta.
+#	o      - yellow (light brown).
+#	p      - white (light grey).
+
+aaaaaaaa # EMPTY
+aaaaaaaa
+aaaaaaaa
+aaaaaaaa
+aaaaaaaa
+aaaaaaaa
+aaaaaaaa
+aaaaaaaa
+
+aaakkaaa # SNAKE0
+akkkkkka
+akkcckka
+kkckkckk
+kkckkckk
+akkcckka
+akkkkkaa
+aaakkaaa
+
+# SNAKE1
+aaajjaaa
+ajjjcjja
+ajjccjja
+jjjjcjjj
+jjjjcjjj
+ajjjcjja
+ajjjjjaa
+aaajjaaa
+
+aaaeeaaa # SNAKE2
+aeebbeea
+aebeebea
+eeeeebee
+eeebeeee
+aebbbbea
+aeeeeeaa
+aaaeeaaa
+
+aaaeeaaa # SNAKE3
+aeebbeea
+aeeeebea
+eeebbeee
+eeeeebee
+aeebbeea
+aeeeeeaa
+aaaeeaaa
+
+aaaeeaaa # SNAKE4
+aebeebea
+aebeebea
+eebbbbee
+eeeeebee
+aeeeebea
+aeeeeeaa
+aaaeeaaa
+
+aaaeeaaa # SNAKE5
+aeeeeeea
+aebbbbea
+eebeeeee
+eebbbbee
+aeeeebea
+aeebbeaa
+aaaeeaaa
+
+aaaeeaaa # SNAKE6
+aeebbbea
+aebeeeea
+eebbbeee
+eebeebee
+aeebbeea
+aeeeeeaa
+aaaeeaaa
+
+aaaeeaaa # SNAKE7
+aebbbbea
+aeeeebea
+eeeebeee
+eeeebeee
+aeeebeea
+aeeeeeaa
+aaaeeaaa
+
+aaaeeaaa # SNAKE8
+aebbbbea
+aebeebea
+eebbbbee
+eebeebee
+aebbbbea
+aeeeeeaa
+aaaeeaaa
+
+aaaeeaaa # SNAKE9
+aebbbbea
+aebeebea
+eebbbbee
+eeeeebee
+aebbbbea
+aeeeeeaa
+aaaeeaaa
+
+# FRUIT0
+aaaeeaaa
+aaaffaaa
+aaffffaa
+eeffffee
+aaffffaa
+aaaffaaa
+aaaeeaaa
+aaaaaaaa
+
+a a a a a a a a			# FRUIT1
+a a a h h a a a 		#
+a a h i i h a a
+a h i i i i h a
+a h i i i i h a
+a a h i i h a a
+a a a h h a a a
+a a a a a a a a
+
+a a a g g a a a			# FRUIT2
+a g g c c g g a 		# kiwi
+a g c c i c g a
+g c i c c c c g
+g c c i c c c g
+a g c c c i g a
+a g g i c g g a
+a a a g g a a a
+
+a a a a a a a a			# FRUIT3
+a a a a a a a a 		# cocomero
+a a a a a a a a
+c e e e e a e c
+c e a e a e e c
+a c e a e a c a
+a a c c c c a a
+a a a a a a a a
+
+a a a a a a a a			# FRUIT4
+a a c c a a a a 		# orange
+a a c c a a a a 
+a a m m m m a a 
+a m m m m m m a 
+a m m m m m m a 
+a m m m m m m a 
+a a m m m m a a 
+
+a a a a g a a a			# FRUIT5
+a a a g a a a a 		# pera
+a a c a c a a a 
+a a c c c c a a 
+a a c c c c a a 
+a c c c c c c a 
+a c c c c c c a 
+a a c c c c a a 
+
+a a a a a a a a			# FRUIT6
+a a c a a c a a 		# fragola
+a a a c c a a a 
+a e g a a e e a 
+a e e g e g e a 
+a e g e g e e a 
+a a e g e e a a 
+a a a e e a a a 
+
+a a a a a a a a			# FRUIT7
+a a a a c a a a 		# mela
+a a a c a a a a 
+a a e a e e a a 
+a e e e e e e a 
+a e e e e e e a 
+a a e e e e a a 
+a a a a a a a a 
+
+a a a a a a a a			# FRUIT8
+a a a a c c a a 		# ciliege
+a a a c a c a a 
+a a c a a c a a 
+a a e a a c a a 
+a e e e a e a a 
+a a e a e e e a 
+a a a a a e a a 
+
+a a a o o a a a			# FRUIT9
+a a o o o a a a 		# banana
+a o o o a a a a 
+a o o o a a a a 
+a o o o a a a a 
+a a o o o a a a 
+a a a o o o a a 
+a a a a a o o a 
+
+# EXSNAKE
+a a a h h a a a
+a h h a a h h a
+a h a a a a h a
+h a a a a a a h
+h a a a a a a h
+a h a a a a h a
+a h h a a h h a
+a a a h h a a a
+
+aaaaabaa # WALL
+bbbbbbbb
+aabaaaaa
+bbbbbbbb
+aaaaabaa
+bbbbbbbb
+aabaaaaa
+bbbbbbbb
+
+aaaaaaaa # UNKNOWN
+aabbbaaa
+abaaabaa
+aaaabaaa
+aaabaaaa
+aaaaaaaa
+aaabaaaa
+aaaaaaaa
+

@@ -1,0 +1,44 @@
+- mod_wall.c:
+	o create_wall check
+
+- ui_X.c:
+	o reduce network traffic when writing text !
+
+- CORE:
+	hooks
+	allow for command execution wait request
+		I mean, if a command needs the arena initializated
+		but it is not yet, let it ask for a delay so it
+		can try again to execute later (then arena is
+		initialized)
+
+- ui_X.c:
+	o finish() on delete/destroy events
+	o pause() on unmap/focusout? events
+	o better font metrics (?)
+
+- adjust delay value evaluating overall actual game speed ..
+  ( augment it if the loop always takes longer ... )
+
+- remove message expiration code from the core module and put it
+  in each individual UI module when applicable...
+
+- call module_defined killer and destroy functions ...
+
+- Check bug in font usage (ui_vga2.c) [ segv on low resolution ? ]
+
+- Find a new package for all the modules (one directory for each module?)
+  Add documentation for specific UI modules
+
+- Add a ui_refresh function in UI modules (probably triggered with ^L)
+
+- implement a non-blocking getch() for minix
+
+- provide an arena_copy function for use by AI modules
+
+- remove MAXPLAYERS limit (really? when network layer is implemented, maybe!)
+  this will make impratical snake reset by digit press (still working with
+  the ``reset'' command though)
+
+- add compile-time option to enable dynamic loadable modules (really?)
+

@@ -1,0 +1,10 @@
+Set SVGALIB_DEFAULT_MODE to the video mode you wish to use.
+The value can be either in the symbolic form (es. G800x600x256)
+or in the numeric form (es. 1)
+
+Sprite dimensions can be specified with the command
+'spritesize <width> <height>'. It will work only before
+screen initialization (in config file or on command line).
+
+Border size is set with `bordersize <size>'. The size is the
+number of sprites the border will take.

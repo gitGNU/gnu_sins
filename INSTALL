@@ -1,0 +1,50 @@
+BUILDING AND INSTALLATION INSTRUCTIONS FOR snake
+================================================
+
+1. Short way
+
+  $ cd src
+  $ ./configure
+  $ if test `whoami` = "hacker"; then vi config.h Makefile; fi
+  $ make 
+  $ make install
+
+2. Configure options
+
+  --disable-timeout
+
+    Disable the pleyer timeout feature. This feature does not let AI
+    players think too much when deciding which direction to take.
+    It might not work on all systems (uses setjmp longjmp).
+
+  --disable-cmdfifo
+
+    This feature lets you use the 'cmdfifo' command to specify the
+    name of a file to read commands from. Disable it on system that
+    does not support FIFOs.
+
+  --with-readline
+
+    If you want to use GNU readline with the command line interface
+    ( linked only against the curses versions )
+
+  --help
+
+    Shows the complete list of supported configure options. They
+    are supported by `configure' but most of them are not considered
+    by the code itself... they should though :(
+
+
+3. Sins commands
+
+  Commands may be specified in a file called ~/.sinsrc, on the command
+  line, during the game hitting the ``:'' key (on supporting interfaces)
+  or throug a fifo file (initialized with the command ``cmdfifo <path>''.
+
+  A list of available commands can be obtained using the ``-L'' command
+  line switch. There could be different commands for the different
+  interfaces. 
+  
+  NOTE: the `sins' executable is just a shell wrapper, it won't accept
+  any switches... you must run one of the interface-specific executables
+  (sins will give you a list of the available ones).
