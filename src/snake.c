@@ -24,6 +24,9 @@
  ****************************************************************************
  *
  * $Log: snake.c,v $
+ * Revision 1.3  2004/04/13 07:30:32  strk
+ * removed warning about multiple initializzation of snakes
+ *
  * Revision 1.2  2003/12/19 19:00:58  strk
  * various small changes
  *
@@ -343,7 +346,7 @@ snake_init (snake * s)
   /* Check wheter the snake was already initialized */
   if ( s->length )
   {
-    message("Snake %i already initialized", s->playernum);
+    //message("Snake %i already initialized", s->playernum);
     return;
   }
 
