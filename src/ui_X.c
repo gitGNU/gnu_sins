@@ -36,8 +36,11 @@
  * exposure-handling paranoias since nothing would mess with the
  * pixmap integrity so it's enought to copy it to the window itself
  * everytime it's needed.
+ *
+ * Of course, this will also slow down performances.
+ *
  */
-#define USE_ARENAWIN_PIXMAP
+#undef USE_ARENAWIN_PIXMAP
 
 /*
  * Define this to use root window as the arena
@@ -691,8 +694,10 @@ ui_getkey ()
 
     key = XKeycodeToKeysym(dpy, event.xkey.keycode, event.xkey.state);
 
+#if 0 // DEBUG KEYSYMS ?
     fprintf(stderr, "ui_getkey: keysym %i / keycode %i\n",
-      key, event.xkey.keycode);
+		    key, event.xkey.keycode);
+#endif
 
     if ( event.type == KeyPress )
     {
@@ -750,7 +755,7 @@ ui_prompt (char *prompt_string)
     if ( key == '\n' ) break;
 
     /* handle kill-line */
-    fprintf(stderr, "key is %d\n", key);
+    //fprintf(stderr, "key is %d\n", key);
 
     /* handle backspace */
     if ( key == 127 )
