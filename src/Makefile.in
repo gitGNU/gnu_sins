@@ -14,8 +14,7 @@ CURSES_CFLAGS = @CURSES_CFLAGS@
 VGA_CFLAGS = @VGA_CFLAGS@
 VGA2_CFLAGS = @VGA2_CFLAGS@
 X_CFLAGS = @X_CFLAGS@
-LIBS = -lm
-LDFLAGS =
+LDFLAGS = -lm
 DEFS = @DEFS@
 CFLAGS = @CFLAGS@ -I. -DDEFAULT_SEARCHPATH='"${datadir}/pictset:~"'
 CC = @CC@
@@ -65,13 +64,13 @@ X-sins: $(OBJ) $(MODULES) ui_X.c sins.h
 	$(CC) $(CFLAGS) $(X_CFLAGS) -o $@ $(OBJ) $(MODULES) ui_X.c
 
 curses-sins: $(OBJ) $(MODULES) ui_curses.c  sins.h
-	$(CC) $(CFLAGS) $(CURSES_CFLAGS) -o $@ $(OBJ) $(MODULES) ui_curses.c
+	$(CC) $(CFLAGS) $(CURSES_CFLAGS) $(LDFLAGS) -o $@ $(OBJ) $(MODULES) ui_curses.c
 
 dumb-sins: $(OBJ) $(MODULES) ui_dumb.c sins.h
-	$(CC) -o $@ $(CFLAGS) $(OBJ) $(MODULES) ui_dumb.c
+	$(CC) -o $@ $(CFLAGS) $(LDFLAGS) $(OBJ) $(MODULES) ui_dumb.c
 
 ansi-sins: $(OBJ) $(MODULES) ui_ansi.c sins.h
-	$(CC) -o $@ $(CFLAGS) $(OBJ) $(MODULES) ui_ansi.c
+	$(CC) -o $@ $(CFLAGS) $(LDFLAGS) $(OBJ) $(MODULES) ui_ansi.c
 
 vga-sins: $(OBJ) $(MODULES) ui_vga.c sins.h
 	$(CC) $(CFLAGS) $(VGA_CFLAGS) $(LDFLAGS) -o $@ $(OBJ) $(MODULES) ui_vga.c
@@ -103,3 +102,6 @@ sins_core.a: $(OBJ)
 	ar -rc $@ $(OBJ) 
 	ranlib $@
 
+
+Makefile: Makefile.in configure.in
+	./config.status
