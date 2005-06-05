@@ -18,7 +18,7 @@
  *    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
  ****************************************************************************
- * $Id: ui_curses.c,v 1.4 2004/07/28 13:33:13 strk Exp $
+ * $Id: ui_curses.c,v 1.5 2005/06/05 18:40:13 strk Exp $
  ****************************************************************************/
 
 
@@ -255,7 +255,7 @@ init_screen ()
    * make cursor invisible 
    */
   if (curs_set (0) == ERR)
-    return 0;
+    fprintf(stderr, "cursor hiding not supported");
 
   /*
    * don't echo input characthers 
