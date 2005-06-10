@@ -2,6 +2,8 @@
 MODULES IMPLEMENTATION (0.15)
 --------------------------------------------------------------------------------
 
+$Id: MODULES,v 1.2 2005/06/10 12:24:20 strk Exp $
+
 A snake module can implement one or more snakes players.
 
 The modules.c source file contains a function called ``init_modules''
@@ -120,7 +122,7 @@ The arena (play field) is a *sprite* bidimensional array.
 To scan the whole arena you should do something like:
 
 	int y, x;
-	spite *sp;
+	sprite *sp;
 
 	/* ARENA_HEIGHT and ARENA_WIDTH are macros defined in modules.h */
 	for ( y=0; y<ARENA_HEIGHT; y++ )
@@ -236,8 +238,7 @@ Prototype: int register_command (char *, int (*)(char *), char *help);
 
 The command label must be shorter then MAXCMDLBLLEN. The command line
 composed of the command label PLUS the command arguments can't be
-longer then MAXCMDLINELEN. The help string should be short enought to
+longer then MAXCMDLINELEN. The help string should be short enough to
 fit on a line of the game display area (variable actually.. duh!).
-
 
 

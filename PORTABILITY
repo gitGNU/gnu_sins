@@ -1,5 +1,13 @@
 NOTE: given the modular UI mechanism, not all UIs will work on all platform
 
+Build requirements:
+	- X interface: xlib 
+	- curses interface: ncurses
+	- vga interface: svgalib 
+
+Run requirements:
+	- ansi interface: an ansi terminal
+
 As of version 0.11 is known to work on (uname -srm):
 
 	- Linux 2.0.34C52_SK mips
@@ -9,6 +17,7 @@ As of version 0.11 is known to work on (uname -srm):
 	- Linux 2.2.17-21mdksecure i586
 	- Linux 2.2.18pre21 i686
 	- Linux 2.2.19 i586
+	- Linux 2.6.7 i686
 	- FreeBSD 4.0-RELEASE i386
 	- FreeBSD 4.1.1-STABLE i386
 	- FreeBSD 4.2-RELEASE i386

@@ -1,4 +1,11 @@
-UI module exported functions:
+In order to provide a new interface to SINS you'll need to implement
+a set of functions in a file and add a build rule in src/Makefile.
+
+See other binaries (X-sins, for example) in src/Makefile to see how
+to do that. Your object file must be linked against $(OBJ) and $(MODULES)
+to obtain a complete binary.
+
+This is a list of UI module exported functions:
 
 	-- Initialize module. Register commands here.
 	int ui_init ();
@@ -24,3 +31,10 @@ UI module exported functions:
 	-- Buffering is considered ...
 	int ui_getkey (void);
 
+
+As you can see there is no event-based architecture for the user interface.
+Each interface must keep a copy of the old arena in order to detect
+actual changes between calls or refresh the whole thing.
+
+Basically, the UI module is just a renderer of each frame of the game
+movie, and a mean to obtain user input. Simple as it sound.
