@@ -18,7 +18,7 @@
  *    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
  ****************************************************************************
- * $Id: ui_curses.c,v 1.5 2005/06/05 18:40:13 strk Exp $
+ * $Id: ui_curses.c,v 1.6 2005/11/26 10:09:50 strk Exp $
  ****************************************************************************/
 
 
@@ -360,7 +360,7 @@ make_arena (ARENA *arena)
   /* initialize the arena maps (used for optimization purposes) */
   arenamap = (chtype *)safe_malloc( arena->lines*arena->cols*sizeof(chtype),
     "ui_curses: ui_initarena: arenamap");
-  memset(arenamap, -1, arena->lines * arena->cols);
+  memset(arenamap, -1, arena->lines * arena->cols * sizeof(chtype));
 
   /*
    * Actually create the arena window
