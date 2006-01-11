@@ -55,6 +55,7 @@ AC_ARG_WITH(readline, \
   if test "$with_readline" != "no"; then
     AC_MSG_RESULT(*--> checking for GNU readline)
     AC_CHECK_HEADERS(readline.h readline/readline.h, break)
+    AC_CHECK_HEADERS(history.h readline/history.h, break)
     AC_CHECK_LIB(readline, readline,
       AC_DEFINE(WITH_READLINE, 1)
       CURSES_CFLAGS="$CURSES_CFLAGS -lreadline"

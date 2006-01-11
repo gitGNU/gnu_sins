@@ -18,7 +18,7 @@
  *    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
  ****************************************************************************
- * $Id: ui_curses.c,v 1.6 2005/11/26 10:09:50 strk Exp $
+ * $Id: ui_curses.c,v 1.7 2006/01/11 16:52:24 strk Exp $
  ****************************************************************************/
 
 
@@ -35,6 +35,14 @@
 #else
 #ifdef HAVE_READLINE_READLINE_H
 #include <readline/readline.h>
+#endif
+#endif
+
+#ifdef HAVE_HISTORY_H
+#include <history.h>
+#else
+#ifdef HAVE_READLINE_HISTORY_H
+#include <readline/history.h>
 #endif
 #endif
 
@@ -399,6 +407,7 @@ ui_prompt (char *prompt_string)
 
   reset_shell_mode ();
   cmd = readline (ps);
+  add_history(cmd);
   reset_prog_mode ();
 
 #else
