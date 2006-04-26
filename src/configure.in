@@ -13,16 +13,16 @@ AC_CONFIG_HEADER(config.h)
 
 dnl Features.
 
-AC_ARG_ENABLE(cmdfifo, \
-  --disable-cmdfifo       Disable command fifo interface,
+AC_ARG_ENABLE(cmdfifo, 
+[  --disable-cmdfifo       Disable command fifo interface],
   if test "$enable_cmdfifo" = "no"; then
     AC_MSG_RESULT(*--> disabling fifo command interface)
     AC_DEFINE(DISABLE_CMDFIFO)
   fi
 )
 
-AC_ARG_ENABLE(timeout, \
-  --disable-timeout       Disable player timeout,
+AC_ARG_ENABLE(timeout, 
+[  --disable-timeout       Disable player timeout],
   if test "$enable_timeout" = "no"; then
       AC_MSG_RESULT(*--> disabling player timeout) 
       AC_DEFINE(DISABLE_TIMEOUT)
@@ -50,20 +50,27 @@ AC_CHECK_FUNCS(getopt_long)
 AC_CHECK_FUNCS(usleep)
 
 dnl Packages.
-AC_ARG_WITH(readline, \
-  --with-readline         Support fancy command line editing,
-  if test "$with_readline" != "no"; then
-    AC_MSG_RESULT(*--> checking for GNU readline)
-    AC_CHECK_HEADERS(readline.h readline/readline.h, break)
-    AC_CHECK_HEADERS(history.h readline/history.h, break)
-    AC_CHECK_LIB(readline, readline,
-      AC_DEFINE(WITH_READLINE, 1)
-      CURSES_CFLAGS="$CURSES_CFLAGS -lreadline"
-      AC_MSG_RESULT(*--> GNU readline support enabled),
-      AC_MSG_RESULT(*--> GNU readline support disabled)
-    )
-  fi
-)
+AC_ARG_WITH(readline, 
+[  --with-readline         Support fancy command line editing],
+[case "${withval}" in
+  yes) with_readline=yes ;;
+  no)  with_readline=no ;;
+  *)   AC_MSG_ERROR([bad value ${withval} for --with-readline option]) ;;
+esac],
+[ with_readline=no ]  )
+
+if test "$with_readline" != "no"; then
+	AC_MSG_RESULT(*--> checking for GNU readline)
+
+	AC_CHECK_HEADERS(readline.h readline/readline.h, break)
+	AC_CHECK_HEADERS(history.h readline/history.h, break)
+	AC_CHECK_LIB(readline, readline,
+		AC_DEFINE(WITH_READLINE, 1)
+		CURSES_CFLAGS="$CURSES_CFLAGS -lreadline"
+		AC_MSG_RESULT(*--> GNU readline support enabled),
+		AC_MSG_RESULT(*--> GNU readline support disabled)
+	)
+fi
 
 ############################################################################
 # UI Module selection
