@@ -1,5 +1,7 @@
 Makefile
 X-sins
+vga-sins
+vga2-sins
 ansi-sins
 config.cache
 config.h
@@ -7,3 +9,4 @@ config.log
 config.status
 curses-sins
 dumb-sins
+autom4te.cache
