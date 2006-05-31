@@ -1,5 +1,13 @@
 HISTORY
 
+0.23cvs
+
+	- Added history support for curses UI.
+
+	- Initial camera support.
+
+	- Cleaned up for GNU coding standard acceptance.
+
 0.22
 	- Code development put under CVS.
 	  See ChangeLog for news.
