@@ -1,4 +1,4 @@
-# $RCSFile$ $Revision: 1.2 $
+# $RCSfile: loop_pictsets,v $ $Revision: 1.3 $
 
 fifo=/tmp/fifo
 sleeptime=5
