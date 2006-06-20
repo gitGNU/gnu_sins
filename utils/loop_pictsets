@@ -1,3 +1,5 @@
+# $RCSFile$ $Revision: 1.2 $
+
 fifo=/tmp/fifo
 sleeptime=5
 sets=/home/strk/prj/sins/devel/lib/ui_vga2_pictset/*
