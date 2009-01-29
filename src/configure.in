@@ -97,8 +97,14 @@ AC_CHECK_LIB(curses, initscr,
 
 AC_PATH_X
 if test "EMPTY$no_x" = "EMPTY"; then
-      X_CFLAGS="$X_CFLAGS -L$x_libraries -lX11 -I$x_includes"
       build_list="$build_list X-sins"
+      if test "x$x_libraries" != "x"; then
+        X_CFLAGS="$X_CFLAGS -L$x_libraries"
+      fi
+      X_CFLAGS="$X_CFLAGS -lX11"
+      if test "x$x_includes" != "x"; then
+        X_CFLAGS="$X_CFLAGS -I$x_includes"
+      fi
 fi
 
 ############################################################################
