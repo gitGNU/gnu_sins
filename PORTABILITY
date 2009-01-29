@@ -28,3 +28,5 @@ Known problems:
 	- I had an hard time trying to get non-bloking reads on minix
 	  curses library does not work there.. and I couldn't get fcntl
 	  do the work for me ... any help ? --strk;
+
+	- It's broken on 64bit systems (where sizeof(void*) == 8)
