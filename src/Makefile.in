@@ -61,22 +61,22 @@ mod_wall.o: mod_wall.c sins.h
 #--- BINS
 
 X-sins: $(OBJ) $(MODULES) ui_X.c sins.h
-	$(CC) $(CFLAGS) $(X_CFLAGS) $(LDFLAGS) -o $@ $(OBJ) $(MODULES) ui_X.c
+	$(CC) $(CFLAGS) $(X_CFLAGS) -o $@ $(OBJ) $(MODULES) ui_X.c $(LDFLAGS) 
 
 curses-sins: $(OBJ) $(MODULES) ui_curses.c  sins.h
-	$(CC) $(CFLAGS) $(CURSES_CFLAGS) $(LDFLAGS) -o $@ $(OBJ) $(MODULES) ui_curses.c
+	$(CC) $(CFLAGS) $(CURSES_CFLAGS) -o $@ $(OBJ) $(MODULES) ui_curses.c $(LDFLAGS)
 
 dumb-sins: $(OBJ) $(MODULES) ui_dumb.c sins.h
-	$(CC) -o $@ $(CFLAGS) $(LDFLAGS) $(OBJ) $(MODULES) ui_dumb.c
+	$(CC) -o $@ $(CFLAGS) $(OBJ) $(MODULES) ui_dumb.c $(LDFLAGS)
 
 ansi-sins: $(OBJ) $(MODULES) ui_ansi.c sins.h
-	$(CC) -o $@ $(CFLAGS) $(LDFLAGS) $(OBJ) $(MODULES) ui_ansi.c
+	$(CC) -o $@ $(CFLAGS) $(OBJ) $(MODULES) ui_ansi.c $(LDFLAGS)
 
 vga-sins: $(OBJ) $(MODULES) ui_vga.c sins.h
-	$(CC) $(CFLAGS) $(VGA_CFLAGS) $(LDFLAGS) -o $@ $(OBJ) $(MODULES) ui_vga.c
+	$(CC) $(CFLAGS) $(VGA_CFLAGS) -o $@ $(OBJ) $(MODULES) ui_vga.c $(LDFLAGS)
 
 vga2-sins: $(OBJ) $(MODULES) ui_vga2.c sins.h
-	$(CC) $(CFLAGS) $(VGA2_CFLAGS) -o $@ $(OBJ) $(MODULES) ui_vga2.c
+	$(CC) $(CFLAGS) $(VGA2_CFLAGS) -o $@ $(OBJ) $(MODULES) ui_vga2.c $(LDFLAGS)
 
 #--- UTILS
 
