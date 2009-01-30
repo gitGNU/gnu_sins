@@ -22,11 +22,10 @@ As of version 0.11 is known to work on (uname -srm):
 	- FreeBSD 4.1.1-STABLE i386
 	- FreeBSD 4.2-RELEASE i386
 	- OpenBSD 2.7 i386
+	- Linux 2.6.27-9-generic x86_64
 
 Known problems:
 
 	- I had an hard time trying to get non-bloking reads on minix
 	  curses library does not work there.. and I couldn't get fcntl
 	  do the work for me ... any help ? --strk;
-
-	- It's broken on 64bit systems (where sizeof(void*) == 8)

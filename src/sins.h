@@ -18,7 +18,7 @@
  *    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
  ****************************************************************************
- * $Id: sins.h,v 1.5 2004/07/28 13:33:13 strk Exp $
+ * $Id: sins.h,v 1.6 2009/01/30 09:56:18 strk Exp $
  ****************************************************************************/
 
 #ifndef SINS_H
@@ -154,8 +154,8 @@ typedef struct arena_t
   int lines;        	/* dimensions of the "bidimensional" sprite array */
   int cols;                               
 
-  char init;         /* integrity check flag */
-  sprite **board;   /* pointer to the sprite array */
+  char init;          /* integrity check flag */
+  sprite **board;     /* an array of pointers to sprites */
 } ARENA;
 
 

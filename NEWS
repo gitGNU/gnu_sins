@@ -2,6 +2,8 @@ HISTORY
 
 0.23cvs
 
+	- Fix support for 64bit systems
+
 	- Fix build of X ui on systems where AC_CHECK_X
 	  doesn't set x_libraries and x_includes
 

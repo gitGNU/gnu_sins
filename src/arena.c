@@ -49,8 +49,8 @@ int
 arenainit ()
 {
   arena.board = safe_malloc (arena.lines * arena.cols *
-    sizeof (sprite), "arena board");
-  memset (arena.board, 0, arena.lines*arena.cols*sizeof(sprite) );
+    sizeof (sprite*), "arena board");
+  memset (arena.board, 0, arena.lines*arena.cols*sizeof(sprite*) );
 
   arena.init = 1;
   arena.protagonist = -1;

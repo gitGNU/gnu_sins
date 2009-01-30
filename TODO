@@ -1,5 +1,3 @@
-- FIX pointer math (segfaults as hell on 64bit systems)
-
 - add a dist: rule in Makefile
 
 - mod_wall.c:
