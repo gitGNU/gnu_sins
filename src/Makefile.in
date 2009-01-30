@@ -84,7 +84,10 @@ clean:
 	rm -f *-sins core *.core *~ *.o
 
 distclean: clean
-	rm -f Makefile config.h config.cache config.status config.log
+	rm -f config.h config.cache config.status config.log
+
+maintainer-clean: distclean
+	rm -f Makefile
 
 install: all
 
