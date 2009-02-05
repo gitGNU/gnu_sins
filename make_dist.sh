@@ -6,6 +6,9 @@
 # -- sins-$version.tar.gz
 # sh make_dist.sh version
 #
+# Expects a tag to exist with format ver_0_23
+# for a version 0.23
+#
 
 app=sins
 tag=sins
@@ -13,7 +16,7 @@ version=cvs
 
 if [ -n "$1" ]; then
         version="$1"
-        tag="ver_$version"
+        tag="ver_"`echo "$version" | tr '.' '_'`
 fi
 
 outdir="$app-$version"
