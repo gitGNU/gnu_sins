@@ -1,7 +1,8 @@
 /****************************************************************************
  *
- *    snake - a videogame derived from Q-Basic nibbles
- *    Copyright (C) 1999 "Sandro Santilli" <strk@keybit.net>
+ *    sins - a videogame derived from Q-Basic nibbles
+ *
+ *    Copyright (C) 1999-2009 "Sandro Santilli" <strk@keybit.net>
  *
  *    This program is free software; you can redistribute it and/or modify
  *    it under the terms of the GNU General Public License as published by
@@ -18,7 +19,7 @@
  *    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
  ****************************************************************************
- * $Id: ui_vga.c,v 1.4 2004/07/28 13:33:13 strk Exp $
+ * $Id: ui_vga.c,v 1.5 2009/03/30 09:47:08 strk Exp $
  ****************************************************************************
  *
  * purpose: handle vga graphics 
@@ -363,6 +364,9 @@ draw_sprite (int sx, int sy, int color)
 /****************************************************************************
  *
  * $Log: ui_vga.c,v $
+ * Revision 1.5  2009/03/30 09:47:08  strk
+ * Fix bug in 'camera' command, add support for turning camera off, update copyright years
+ *
  * Revision 1.4  2004/07/28 13:33:13  strk
  * Added copyright statment and permission to copy header in all files.
  * Added a reference to source URL into compat.c file.

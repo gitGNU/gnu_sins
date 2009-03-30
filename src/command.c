@@ -1,6 +1,8 @@
-/*
- *    snake - a videogame derived from Q-Basic nibbles
- *    Copyright (C) 1999 "Sandro Santilli" <strk@keybit.net>
+/****************************************************************************
+ *
+ *    sins - a videogame derived from Q-Basic nibbles
+ *
+ *    Copyright (C) 1999-2009 "Sandro Santilli" <strk@keybit.net>
  *
  *    This program is free software; you can redistribute it and/or modify
  *    it under the terms of the GNU General Public License as published by
@@ -16,7 +18,7 @@
  *    along with this program; if not, write to the Free Software
  *    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- */
+ ****************************************************************************/
 
 #include "sins.h"
 #include <errno.h>

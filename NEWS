@@ -1,6 +1,12 @@
 HISTORY
 
-0.23
+0.24 - ??
+
+	- Fix segfault on invoking 'camera' command with no arg.
+
+	- Add 'camera off' command.
+
+0.23 - 2009-02-05
 
 	- Fix support for 64bit systems
 

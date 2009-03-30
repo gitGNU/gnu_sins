@@ -1,7 +1,8 @@
 /****************************************************************************
  *
- *    snake - a videogame derived from Q-Basic nibbles
- *    Copyright (C) 1999 "Sandro Santilli" <strk@keybit.net>
+ *    sins - a videogame derived from Q-Basic nibbles
+ *
+ *    Copyright (C) 1999-2009 "Sandro Santilli" <strk@keybit.net>
  *
  *    This program is free software; you can redistribute it and/or modify
  *    it under the terms of the GNU General Public License as published by
@@ -24,6 +25,9 @@
  ****************************************************************************
  *
  * $Log: main.c,v $
+ * Revision 1.5  2009/03/30 09:47:06  strk
+ * Fix bug in 'camera' command, add support for turning camera off, update copyright years
+ *
  * Revision 1.4  2004/07/28 13:33:13  strk
  * Added copyright statment and permission to copy header in all files.
  * Added a reference to source URL into compat.c file.
@@ -143,7 +147,7 @@ main (int argc, char **argv)
   register_command ("quit", CMD_quit, "quit");
   register_command ("mfprob", CMD_mfprob, "mfprob <percent>");
   register_command ("path", CMD_path, "path [<string>]");
-  register_command("camera", CMD_camera, "camera on #");
+  register_command ("camera", CMD_camera, "camera [off|on #]");
 
 
   /* Parse command line options (-switches) */

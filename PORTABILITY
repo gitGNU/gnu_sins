@@ -8,7 +8,7 @@ Build requirements:
 Run requirements:
 	- ansi interface: an ansi terminal
 
-As of version 0.11 is known to work on (uname -srm):
+It was tested to run on (uname -srm):
 
 	- Linux 2.0.34C52_SK mips
 	- Linux 2.0.30 i486
@@ -23,6 +23,8 @@ As of version 0.11 is known to work on (uname -srm):
 	- FreeBSD 4.2-RELEASE i386
 	- OpenBSD 2.7 i386
 	- Linux 2.6.27-9-generic x86_64
+	- Linux 2.6.27-11-generic x86_64
+	- Linux 2.6.28-6-versatile armv5tej1
 
 Known problems:
 
