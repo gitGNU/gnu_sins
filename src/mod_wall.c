@@ -19,7 +19,7 @@
  *    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
  ****************************************************************************
- * $Id: mod_wall.c,v 1.4 2009/08/14 15:48:30 strk Exp $
+ * $Id: mod_wall.c,v 1.5 2009/08/14 15:50:43 strk Exp $
  ****************************************************************************/
 
 
@@ -170,7 +170,7 @@ parse_int_expression(char **spec)
   /* Parse a long */
   ret = strtol(*spec, &endptr, 10);
 
-  fprintf(stderr, "spec=%s, ret=%d, endptr=%s\n", *spec, ret, endptr);
+  /* fprintf(stderr, "spec=%s, ret=%d, endptr=%s\n", *spec, ret, endptr); */
 
   *spec = endptr;
 
