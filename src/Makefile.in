@@ -16,7 +16,7 @@ VGA2_CFLAGS = @VGA2_CFLAGS@
 X_CFLAGS = @X_CFLAGS@
 LDFLAGS = -lm
 DEFS = @DEFS@
-CFLAGS = @CFLAGS@ -I. -DDEFAULT_SEARCHPATH='"${datadir}/pictset:~"'
+CFLAGS = @CFLAGS@ -I. -DDEFAULT_SEARCHPATH='"${datadir}/pictset:~:."'
 CC = @CC@
 MODULES = mod_ai.o mod_human.o mod_wall.o
 
