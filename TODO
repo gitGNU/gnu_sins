@@ -1,3 +1,5 @@
+- Generate sins.h at configure time, for proper version
+
 - add a dist: rule in Makefile
 
 - mod_wall.c:

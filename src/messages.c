@@ -19,7 +19,7 @@
  *    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
  ****************************************************************************
- * $Id: messages.c,v 1.3 2009/03/30 09:47:06 strk Exp $
+ * $Id: messages.c,v 1.4 2009/08/14 15:01:03 strk Exp $
  ****************************************************************************/
 
 #include "sins.h"
@@ -69,7 +69,7 @@ message (char *format, ...)
 void
 expire_messages ()
 {
-  /* timer is in milliseconds */
+  /* timer is in milliseconds, delay in microseconds */
   if (timer && (timer=timer-(delay/1000)-1) <= 0 )
   {
     ui_drawmessage ("");

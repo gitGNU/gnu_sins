@@ -6,6 +6,9 @@ HISTORY
 
 	- Add 'camera off' command.
 
+	- Fix very high CPU usage in main loop and X ui prompt function
+	  (sleep some..)
+
 0.23 - 2009-02-05
 
 	- Fix support for 64bit systems

@@ -25,6 +25,9 @@
  ****************************************************************************
  *
  * $Log: main.c,v $
+ * Revision 1.6  2009/08/14 15:01:03  strk
+ * Sleep between iterations (reduces CPU load); fix printed version string; minor indentation and style; update NEWS and TODO files.
+ *
  * Revision 1.5  2009/03/30 09:47:06  strk
  * Fix bug in 'camera' command, add support for turning camera off, update copyright years
  *
@@ -263,23 +266,25 @@ game_loop ()
     /* draw the arena */
     ui_drawarena (&arena);
 
-    if ( game_paused ) continue;
+    if ( ! game_paused && ! waiting )
+    {
 
-    if ( waiting ) continue;
+      /* give players a turn to play */
+      snake_play ();
 
-    /* give players a turn to play */
-    snake_play ();
+      /* move the snakes */
+      move_snakes ();
 
-    /* move the snakes */
-    move_snakes ();
+      /* increment bogus time counter */
+      turn++;
 
-    /* increment bogus time counter */
-    turn++;
+      /* should be done by UIs */
+      expire_messages ();
 
-    /* should be done by UIs */
-    expire_messages ();
+    }
 
-    /* usleep(delay*1000); */
+    /* take a breath */
+    usleep(delay); 
 
   }
 

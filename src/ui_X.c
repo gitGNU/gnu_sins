@@ -19,7 +19,7 @@
  *    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
  ****************************************************************************
- * $Id: ui_X.c,v 1.6 2009/03/30 09:47:07 strk Exp $
+ * $Id: ui_X.c,v 1.7 2009/08/14 15:01:03 strk Exp $
  ****************************************************************************
  *
  * purpose: handle X graphics 
@@ -771,6 +771,8 @@ ui_prompt (char *prompt_string)
 
   while (1)
   {
+    /* take a breath */
+    usleep(10000);
 
     ui_drawarena(&arena);
 

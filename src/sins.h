@@ -18,7 +18,7 @@
  *    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
  ****************************************************************************
- * $Id: sins.h,v 1.7 2009/03/30 09:47:07 strk Exp $
+ * $Id: sins.h,v 1.8 2009/08/14 15:01:03 strk Exp $
  ****************************************************************************/
 
 #ifndef SINS_H
@@ -31,7 +31,7 @@
 
 
 /* version string */
-#define VERSION "0.22"
+#define VERSION "0.24"
 
 
 /* delay range (microseconds) */
