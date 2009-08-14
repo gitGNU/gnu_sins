@@ -19,7 +19,7 @@
  *    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
  ****************************************************************************
- * $Id: mod_wall.c,v 1.5 2009/08/14 15:50:43 strk Exp $
+ * $Id: mod_wall.c,v 1.6 2009/08/14 15:53:07 strk Exp $
  ****************************************************************************/
 
 
@@ -195,7 +195,7 @@ create_wall (char *spec)
   if ( ! ptr ) return NULL;
 
   // Skip comma
-  while (*ptr && *ptr == ',') ++ptr;
+  while (*ptr && ( isspace(*ptr) || *ptr == ',' ) ) ++ptr;
   if ( ! ptr ) return NULL;
 
   // Get BX
