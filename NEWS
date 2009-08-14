@@ -2,6 +2,8 @@ HISTORY
 
 0.24 - ??
 
+	- Add support for W and H labels in 'wall' command specification
+
 	- Fix segfault on invoking 'camera' command with no arg.
 
 	- Add 'camera off' command.
