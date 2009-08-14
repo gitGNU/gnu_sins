@@ -19,7 +19,7 @@
  *    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
  ****************************************************************************
- * $Id: mod_wall.c,v 1.3 2009/03/30 09:47:07 strk Exp $
+ * $Id: mod_wall.c,v 1.4 2009/08/14 15:48:30 strk Exp $
  ****************************************************************************/
 
 
@@ -63,8 +63,12 @@ static wall *make_wall_segment (int ax, int ay, int bx, int by);
 int
 wall_module_init ()
 {
-  if (!register_command("wall", &CMD_wall, "wall <wallspec>")) return 0;
-  if (!register_command("dewall", &CMD_dewall, "dewall <#>")) return 0;
+  if (!register_command("wall", &CMD_wall, "wall <ax> <ay>, <bx> <by> [try W for *x and H for *y]"))
+    return 0;
+
+  if (!register_command("dewall", &CMD_dewall, "dewall <#>"))
+    return 0;
+
   return 1;
 }
 
@@ -97,10 +101,10 @@ CMD_wall (char *spec)
   if ( ! screen_initialized ) return 0;
 
   /* Create the new wall */
-  if ( ! (newwall=create_wall(spec)) ) return 0;
+  if ( ! (newwall=create_wall(spec)) ) return -1;
 
   walls[freeslot] = newwall;
-  if ( ! draw_wall(newwall) ) return 0;
+  if ( ! draw_wall(newwall) ) return -1;
 
   return 1;
 }
@@ -124,17 +128,82 @@ CMD_dewall (char *num)
   return 1;
 }
 
+/*
+ * Return an integer being the result of evaluating
+ * next expression from the input spec, and advance
+ * the spec pointer to point to past the end of
+ * expression.
+ *
+ * Return -1 and set *spec to NULL on malformed input.
+ *
+ */
+static int
+parse_int_expression(char **spec)
+{
+  int ret;
+  char* endptr;
+
+  /* Skip spaces */
+  while (**spec && isspace(**spec)) ++(*spec);
+
+  /* Check premature end */
+  if ( ! **spec ) 
+  {
+    *spec = NULL;
+    return -1;
+  }
+
+  /* Substitute W (arena width) label */
+  if ( **spec == 'W' || **spec == 'w' )
+  {
+    ++(*spec);
+    return ARENA_WIDTH-1;
+  }
+
+  /* Substitute H (arena height) label */
+  if ( **spec == 'H' || **spec == 'h' )
+  {
+    ++(*spec);
+    return ARENA_HEIGHT-1;
+  }
+
+  /* Parse a long */
+  ret = strtol(*spec, &endptr, 10);
+
+  fprintf(stderr, "spec=%s, ret=%d, endptr=%s\n", *spec, ret, endptr);
+
+  *spec = endptr;
+
+  return ret;
+}
+
 static wall *
 create_wall (char *spec)
 {
   int ax, ay, bx, by;
   wall *w;
+  char *ptr = spec;
 
-  if ( sscanf(spec, "%d %d, %d %d", &ax, &ay, &bx, &by) != 4 )
-  {
-    message("Usage: wall <ax> <ay>, <bx> <by>");
-    return NULL;
-  }
+  // TODO: substitute W and H with width and height of arena
+
+  // Get AX
+  ax = parse_int_expression(&ptr);
+  if ( ! ptr ) return NULL;
+
+  // Get AY
+  ay = parse_int_expression(&ptr);
+  if ( ! ptr ) return NULL;
+
+  // Skip comma
+  while (*ptr && *ptr == ',') ++ptr;
+  if ( ! ptr ) return NULL;
+
+  // Get BX
+  bx = parse_int_expression(&ptr);
+  if ( ! ptr ) return NULL;
+
+  // Get BY
+  by = parse_int_expression(&ptr);
 
   fprintf(stderr, "A(%d,%d) B(%d,%d)\n", ax, ay, bx, by);
   w = make_wall_segment(ax, ay, bx, by);
@@ -198,7 +267,7 @@ make_wall_segment_copied (int x, int y, int x2, int y2)
 static wall *
 make_wall_segment (int ax, int ay, int bx, int by)
 {
-  //int sw;
+  int sw;
   wall *w;
   double num, den;
   double u = 0;
@@ -221,10 +290,9 @@ make_wall_segment (int ax, int ay, int bx, int by)
   }
 
   /* Swap values so to have A be upper-left and B lower-right */
-#if 0
   if ( ax > bx ) { sw = ax; ax=bx; bx=sw; }
   if ( ay > by ) { sw = ay; ay=by; by=sw; }
-#endif
+
   num = by-ay;
   den = bx-ax;
 
@@ -263,7 +331,7 @@ make_wall_segment (int ax, int ay, int bx, int by)
       }
     }
 
-    fprintf(stderr, "%d,%d\n", wb->cell.x, wb->cell.y);
+    fprintf(stderr, "cell: %d,%d\n", wb->cell.x, wb->cell.y);
     wb->next = NULL;
     if ( pwb ) pwb->next = wb;
     pwb = wb;
