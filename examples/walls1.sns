@@ -1,4 +1,4 @@
-wall 0 0, W 0
-wall W 0, W H
-wall W H, 0 H
-wall 0 H, 0 0
+wall 0 0,W 0
+wall W 0 , W H
+wall W H ,0   H
+wall 0  H,  0 0
