@@ -25,6 +25,7 @@ It was tested to run on (uname -srm):
 	- Linux 2.6.27-9-generic x86_64
 	- Linux 2.6.27-11-generic x86_64
 	- Linux 2.6.28-6-versatile armv5tej1
+  - Linux 3.2.0-41-generic x86_64
 
 Known problems:
 
