@@ -5,7 +5,10 @@ dnl This is what is going to be substituted
 AC_SUBST(VGA_CFLAGS)
 AC_SUBST(VGA2_CFLAGS)
 AC_SUBST(CURSES_CFLAGS)
+AC_SUBST(CURSES_LDFLAGS)
+AC_SUBST(READLINE_LDFLAGS)
 AC_SUBST(X_CFLAGS)
+AC_SUBST(X_LDFLAGS)
 AC_SUBST(build_list)
 
 dnl Generate configuration header file
@@ -66,7 +69,7 @@ if test "$with_readline" != "no"; then
 	AC_CHECK_HEADERS(history.h readline/history.h, break)
 	AC_CHECK_LIB(readline, readline,
 		AC_DEFINE(WITH_READLINE, 1)
-		CURSES_CFLAGS="$CURSES_CFLAGS -lreadline"
+		READLINE_LDFLAGS="$READLINE_LDFLAGS -lreadline"
 		AC_MSG_RESULT(*--> GNU readline support enabled),
 		AC_MSG_RESULT(*--> GNU readline support disabled)
 	)
@@ -87,10 +90,10 @@ AC_CHECK_LIB(vga, vga_init,
 )
 
 AC_CHECK_LIB(curses, initscr,
-      CURSES_CFLAGS="$CURSES_CFLAGS -lcurses"
+      CURSES_LDFLAGS="-lcurses"
       build_list="$build_list curses-sins",
       AC_CHECK_LIB(ncurses, initscr,
-        CURSES_CFLAGS=" -lncurses"
+        CURSES_LDFLAGS="-lncurses"
         build_list="$build_list curses-sins"
       )
 )
@@ -99,9 +102,9 @@ AC_PATH_X
 if test "EMPTY$no_x" = "EMPTY"; then
       build_list="$build_list X-sins"
       if test "x$x_libraries" != "x"; then
-        X_CFLAGS="$X_CFLAGS -L$x_libraries"
+        X_LDFLAGS="$X_LDFLAGS -L$x_libraries"
       fi
-      X_CFLAGS="$X_CFLAGS -lX11"
+      X_LDFLAGS="$X_LDFLAGS -lX11"
       if test "x$x_includes" != "x"; then
         X_CFLAGS="$X_CFLAGS -I$x_includes"
       fi
